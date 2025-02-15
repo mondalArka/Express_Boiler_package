@@ -1,0 +1,18 @@
+import { Request, Response } from "express";
+import initialService from "../services/initialService";
+
+export default class InitialController {
+
+  // Registration method
+  public static async registration(req: Request, res: Response): Promise<void> {
+      const data = await initialService.registerUser(req.body);
+      res.status(data.status).json({ statusCode: data.status, message: data.message, response: data.response });
+  }
+
+  // View user method
+ public static async viewUser(req: Request, res: Response): Promise<void> {
+      const { id } = req.params;
+      const data = await initialService.getUser(id);
+      res.status(data.status).json({ statusCode: data.status, message: data.message, response: data.response });
+  }
+}

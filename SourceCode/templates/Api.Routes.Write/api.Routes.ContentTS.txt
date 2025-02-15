@@ -1,0 +1,14 @@
+import { Router, Request, Response } from "express";
+import indexRouter  from "./index.route"; // Assuming index.route.ts
+
+const apiRouter: Router = Router();
+
+// Use indexRouter for '/api' routes
+apiRouter.use("/api", indexRouter);
+
+// Web route handler
+apiRouter.get("/web", async (req: Request, res: Response): Promise<void> => {
+  res.json({ message: "Express App" });
+});
+
+export default apiRouter

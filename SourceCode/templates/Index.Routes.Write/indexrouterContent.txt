@@ -1,0 +1,7 @@
+const { initialRouter } = require("../routes/initialRoutes");
+const express=require("express");
+const indexRouter= express.Router();
+
+indexRouter.use("/user",initialRouter);
+
+module.exports={ indexRouter }

@@ -1,0 +1,22 @@
+const jwt = require("jsonwebtoken");
+const userModel = require("../models/user")
+require("dotenv").config();
+class JWTService {
+    static generateToken({ id, email }) {
+        return jwt.sign({
+            id: id,
+            email: email,
+            craetedAt: Date.now()
+        }, process.env.AUTH_SECRET, { expiresIn: "30min" })
+    }
+
+    static async verifyToken(token) {
+        const decode = jwt.verify(token, process.env.AUTH_SECRET)
+        if (!decode) throw new Error("Token not valid!")
+
+        const data = await userModel.find({ _id: decode.id })
+        if (!data) throw new Error("User not found!")
+        return decode;
+    }
+}
+module.exports = JWTService

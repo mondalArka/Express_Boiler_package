@@ -1,0 +1,22 @@
+const userModel = require("../models/user")
+const jwt = require("../utils/jwt")
+const bcrypt = require("bcrypt")
+class initialService {
+
+    static async registerUser(body) {
+        await userModel.create(body)
+    }
+    static async loginUser(body) {
+        let data = await userModel.findOne({ email: body.email })
+        if (!data) throw new Error("User not found!")
+        if (!await bcrypt.compare(body.password, data.password)) throw new Error("Wrong Password!")
+        let token = jwt.generateToken({ id: data._id, email: data.email })
+
+        return { Token: token, user: data }
+    }
+    static async getUser(id) {
+        return await userModel.findOne({ _id: id })
+    }
+}
+
+module.exports = { initialService }

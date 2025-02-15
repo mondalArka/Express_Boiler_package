@@ -1,0 +1,22 @@
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcrypt';
+
+const prisma = new PrismaClient();
+
+// Define middleware function for password hashing
+prisma.$use(async (params, next) => {
+  if (params.model === 'User' && params.action === 'create') {
+    // Check if password exists in the data
+    if (params.args.data.password) {
+      // Hash the password before creating the user
+      const hashedPassword = await hash(params.args.data.password, 10);
+      params.args.data.password = hashedPassword; // Assign hashed password back to the data
+    }
+  }
+  
+  // Proceed to the next middleware or execute the action
+  return next(params);
+});
+
+
+export default prisma

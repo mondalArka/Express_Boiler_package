@@ -1,0 +1,9 @@
+import express, { Router } from "express";
+import initialRouter  from "../routes/initialRoutes"; // Adjust the path as necessary
+
+const indexRouter: Router = express.Router();
+
+// Mounting the initialRouter on the /user route
+indexRouter.use("/user", initialRouter);
+
+export default indexRouter ;

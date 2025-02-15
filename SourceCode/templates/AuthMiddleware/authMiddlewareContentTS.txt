@@ -1,0 +1,34 @@
+import { Request, Response, NextFunction } from "express";
+import JWTService from "../utils/jwt";
+
+// Modifying Request interface in Express
+declare global{
+  namespace Express{
+    interface Request{
+      user?:any
+    }
+  }
+}
+class Authentication {
+  // Method to check and verify the JWT token
+    public static async authCheck(req: Request, res: Response, next: NextFunction): Promise<Response |void> {
+      const auth = req.headers.authorization;
+      if (!auth) {
+        res.status(401).json({ message: "Authorization token is required" });
+        return;
+      }
+      const token = auth.split(" ")[1]; // Extract token from Authorization header
+
+      // Verify the token using the JWTService
+      const data = await JWTService.verifyToken(token);
+      if (!data) {
+        return res.status(401).json({ message: "Invalid token" });
+        
+      }
+
+      req.user = data; // Attach user data to the request object
+      next(); // Proceed to the next middleware
+    }
+}
+
+export default Authentication;

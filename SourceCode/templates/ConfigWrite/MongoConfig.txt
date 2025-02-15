@@ -1,0 +1,11 @@
+const mongoose = require('mongoose')
+require('dotenv').config({ path: './.env' })
+
+class MongoConfig {
+    static async DBCON() {
+        const connection = mongoose.connect(process.env.DB_URL)
+        return connection;
+    }
+}
+
+module.exports = { MongoConfig }

@@ -1,0 +1,11 @@
+import { Router } from "express";
+import initialController  from "../controllers/initialController";
+import asyncHandler from "../utils/asyncHandler";
+
+const initialRouter: Router = Router();
+
+// Define routes with asyncHandler and controller methods
+initialRouter.post("/register", asyncHandler(initialController.registration));
+initialRouter.get("/:id", asyncHandler(initialController.viewUser));
+
+export default initialRouter ;

@@ -1,0 +1,10 @@
+const { initialController } = require("../controllers/initialController");
+const { asyncHandler } = require("../utils/asyncHandler")
+const express = require("express")
+
+const initialRouter = express.Router()
+
+initialRouter.post("/register", asyncHandler(initialController.registration))
+initialRouter.get("/:id", asyncHandler(initialController.viewUser))
+
+module.exports = { initialRouter }

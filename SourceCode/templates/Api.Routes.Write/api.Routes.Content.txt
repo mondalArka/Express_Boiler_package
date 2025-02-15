@@ -1,0 +1,11 @@
+const { indexRouter } = require("./index.route");
+const express=require("express");
+
+const apiRouter= express.Router();
+
+apiRouter.use("/api",indexRouter)
+apiRouter.get("/web",async (req,res)=>{
+    res.json({message:"Express App"});
+})
+
+module.exports={ apiRouter }

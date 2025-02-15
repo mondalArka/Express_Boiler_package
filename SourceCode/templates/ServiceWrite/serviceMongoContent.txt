@@ -1,0 +1,14 @@
+const userModel =require("../models/user")
+class initialService{
+    
+    static async registerUser(body){
+        let user= new userModel(body)
+        await user.save(body)
+    }
+
+    static async getUser(id){
+       return await userModel.findOne({_id:id})
+    }
+}
+
+module.exports={ initialService }

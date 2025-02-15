@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "outDir": "./lib",
+        "strict": true,
+        "rootDir": "./SourceCode",
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "sourceMap": true,
+    },
+    "include": [
+        "./SourceCode/**/*.ts"
+    ],
+    "exclude": [
+        "./lib"
+    ],
+    // "files": ["./SourceCode/writeFiles/**/*.txt","./SourceCode/writeFiles/**/*.js"],
+    "watch": true
+}

@@ -1,0 +1,17 @@
+const { DataSource, DataSourceOptions } =require("typeorm");
+require("dotenv").config()
+const options = {
+    type: "mysql",
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    entities: ['../models/*.js'],
+    migrations: ['../migrations/*.js'],
+    migrationsTableName: 'migrations',
+    synchronize: false,
+    // logging: true
+}
+
+module.exports = new DataSource(options);

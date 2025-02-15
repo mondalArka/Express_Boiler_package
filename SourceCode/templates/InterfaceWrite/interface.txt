@@ -1,0 +1,27 @@
+export default interface User{
+    name:string,
+    email:string,
+    password:string
+}
+
+export interface Decoded{
+    id:number,
+    email:string,
+    createdAt:Date
+}
+
+export interface response {
+    status:number,
+    message:string,
+    response:Array<any> | object | undefined | null
+}
+
+export interface PrismaParams {
+  model: string;
+  action: string;
+  args: {
+    data: {
+      password: string;
+    };
+  };
+}
