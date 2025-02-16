@@ -25,7 +25,6 @@ export default class create {
                         "express",
                         "cors",
                         "dotenv",
-                        "nodemon",
                         "bcrypt"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
@@ -34,7 +33,7 @@ export default class create {
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
                         args.push(`${dirName}/src/config`, `${dirName}/src/models`);
-                        argInstall.push("mongoose");
+                        argInstall.push("mongoose","nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
@@ -62,7 +61,6 @@ export default class create {
                         "express",
                         "cors",
                         "dotenv",
-                        "nodemon",
                         "bcrypt"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
@@ -71,7 +69,7 @@ export default class create {
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
                         args.push(`${dirName}\\src\\config`,`${dirName}\\src\\models`);
-                        argInstall.push("mongoose");
+                        argInstall.push("mongoose","nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
