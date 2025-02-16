@@ -30,6 +30,7 @@ export default class envWriting {
             // str = str.replace(`DB_URL=mongodb://localhost:27017/express-app`, "")
             let index = await appendFile(process.cwd() + `/${dirName}/.env`, `\nAUTH_SECRET=your_jwt_secret`, "utf-8")
             console.log("Finished writing .env file");
+            reading.close();
         } catch (err) {
             console.log("Error in writing .env file!", err);
         }

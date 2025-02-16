@@ -18,8 +18,8 @@ export default class packMod {
         if (sys == "win32") {
             str["scripts"]["start"] = "rimraf dist && npm run build && node ./dist/index.js"
             str["scripts"]["build"] = "tsc -p ."
-            // str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
-            // str["scripts"]["client:generate"] = "npx prisma generate"
+            str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
+            str["scripts"]["client:generate"] = "npx prisma generate"
         }
         let writes = await writeFile(pacakgePath, JSON.stringify(str, null, 2))
         Promise.resolve(writes).catch(err => {

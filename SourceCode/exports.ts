@@ -2,7 +2,7 @@ import checkDir from "./CheckDir";
 import create from "./RunScripts";
 import Execution from "./Exec";
 import packageModify from "./osPackageInstall";
-import npmInitalize from "./osNpm";
+import npmInitalize from "./osNpminitialize";
 import Events from "./EventHandling";
 import inputs from "./InputFromUser";
 import prismaInit from "./PrismaInit";

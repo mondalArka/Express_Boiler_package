@@ -31,7 +31,7 @@ export default class packageModify {
                                     process.exit(1)
                                 }
                                 console.log("Types installed");
-                                Promise.resolve(prismaInit.prismaExec(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
+                                Promise.resolve(prismaInit.prismaExecLinux(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
                                 )
                             })
                         })
@@ -42,7 +42,7 @@ export default class packageModify {
                             process.exit(1)
                         }
                         console.log("Types installed");
-                        Promise.resolve(prismaInit.prismaExec(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
+                        Promise.resolve(prismaInit.prismaExecLinux(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
                         )
                     })
                 })
@@ -82,19 +82,19 @@ export default class packageModify {
             const s1 = spawnSync("npx", ["-v"])
 
             if (s1.error) {
-                const s2 = spawnSync("npm", ["install", "-g", "npx"])
+                const s2 = spawnSync("npm.cmd", ["install", "-g", "npx"])
                 if (s2.error) {
                     console.log("Error in installing npx: " + s2.error.message + "\n" + s2.error.stack);
                     process.exit(1)
                 }
             }
-            execFile("npm", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@type/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
+            execFile("npm.cmd", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
                 if (err) {
                     console.log("Error in installing Type packages: " + err.message + "\n" + err.stack);
                     process.exit(1)
                 }
                 console.log("Types installed");
-                Promise.resolve(prismaInit.prismaExec(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
+                Promise.resolve(prismaInit.prismaExecWindows(args[6] as string, args[8] as string)).catch(err => console.log("Error in prisma initialize")
                 )
             })
         } else {
