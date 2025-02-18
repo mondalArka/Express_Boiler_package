@@ -15,6 +15,5 @@
     "exclude": [
         "./lib"
     ],
-    // "files": ["./SourceCode/writeFiles/**/*.txt","./SourceCode/writeFiles/**/*.js"],
     "watch": true
 }

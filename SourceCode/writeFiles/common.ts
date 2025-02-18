@@ -6,19 +6,21 @@ import {
 } from "./writeExport";
 
 export default class CommomModuleInvoke {
-    public static async invokeMDB(dirName:string): Promise<void> {
-        // await controllerWriting.writing();
-        await errorHandlerWriting.writing(dirName);
-        await apiRouterWriting.writing(dirName);
-        await indexRouterWriting.writing(dirName);
-        await promiseWriting.writing(dirName);
+    public static async invokeMDB(dirName: string): Promise<void> {
+       await Promise.all([
+            errorHandlerWriting.writing(dirName),
+            apiRouterWriting.writing(dirName),
+            indexRouterWriting.writing(dirName),
+            promiseWriting.writing(dirName)
+        ])
     }
 
-    public static async invokeSql(dirName:string): Promise<void> {
-        // await controllerWriting.writing();
-        await errorHandlerWriting.writingSql(dirName);
-        await apiRouterWriting.writingSql(dirName);
-        await indexRouterWriting.writingSql(dirName);
-        await promiseWriting.writingSql(dirName);
+    public static async invokeSql(dirName: string): Promise<void> {
+       await Promise.all([
+            errorHandlerWriting.writingSql(dirName),
+            apiRouterWriting.writingSql(dirName),
+            indexRouterWriting.writingSql(dirName),
+            promiseWriting.writingSql(dirName)
+        ])
     }
 }

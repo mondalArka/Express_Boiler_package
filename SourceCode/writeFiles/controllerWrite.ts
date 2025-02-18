@@ -2,26 +2,15 @@ import { writeFile, readFile } from "fs/promises";
 import * as path from "path";
 export default class controllerWriting {
     public static async writing(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname, "../", "templates", "ControllerWrite", "controllerContent.txt"))
             let index = await writeFile(process.cwd() + `/${dirName}/src/controllers/initialController.js`, reading)
-            console.log("Finished writing initialController.js");
-        } catch (err) {
-            console.log("Error in writing initialController file!", err);
-        }
     }
     public static async writingJWT(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname, "../", "templates", "ControllerWrite", "controllerContentJWT.txt"))
             let index = await writeFile(process.cwd() + `/${dirName}/src/controllers/initialController.js`, reading)
-            console.log("Finished writing initialController.js");
-        } catch (err) {
-            console.log("Error in writing initialController file!", err);
-        }
     }
 
     public static async writingSqlJWT(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname, "../", "templates", "ControllerWrite", "controllerContentTS.txt"))
             let str: string = reading.toString();
             str = str.replace(`public static async registration(req: Request, res: Response): Promise<void> {
@@ -51,20 +40,11 @@ export default class controllerWriting {
       res.status(data.status).json({ statusCode: data.status, message: data.message, response: data.response });
   }`)
             let index = await writeFile(process.cwd() + `/${dirName}/src/controllers/initialController.ts`, str)
-            console.log("Finished writing initialController.ts");
-        } catch (err) {
-            console.log("Error in writing initialController file!", err);
-        }
     }
 
     public static async writingSql(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname,"../","templates","ControllerWrite","controllerContentTS.txt"))
             let index = await writeFile(process.cwd() + `/${dirName}/src/controllers/initialController.ts`, reading)
-            console.log("Finished writing initialController.ts");
-        } catch (err) {
-            console.log("Error in writing initialController file!", err);
-        }
     }
 }
 

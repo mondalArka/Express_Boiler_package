@@ -26,10 +26,6 @@ export default class ErrorHandlers {
           status = 400;
           displayMsg = message;
           break;
-        case "MongoServerError":
-          status = 500;
-          displayMsg = "MONGO_SERVER_ERROR";
-          break;
         case "ReferenceError":
           status = 500;
           displayMsg = "PROGRAMMING_ERROR";
@@ -41,10 +37,6 @@ export default class ErrorHandlers {
         case "TokenExpiredError":
           status = 403;
           displayMsg = "SESSION_EXPIRE";
-          break;
-        case "BSONTypeError":
-          status = 400;
-          displayMsg = message;
           break;
         case "PermissionError":
           status = 403;

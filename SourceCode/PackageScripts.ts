@@ -1,7 +1,6 @@
 import { writeFile, readFile } from "fs/promises";
 export default class packMod {
     public static async scriptPackage(sys: string, Path: string) {
-        console.log("sscripts");
         const pacakgePath = Path + `/package.json`
         const reading = await readFile(pacakgePath);
         Promise.resolve(reading).catch(err => {
@@ -23,9 +22,9 @@ export default class packMod {
         }
         let writes = await writeFile(pacakgePath, JSON.stringify(str, null, 2))
         Promise.resolve(writes).catch(err => {
-            console.log("Error in writing package.json!", err);
+            console.log("\x1b[31mError in writing package.json!\x1b[0m", err);
             process.exit(1);
         })
-        console.log("Modified package.json!");
+        console.log("\x1b[32mModified package.json...\x1b[0m");
     }
 }

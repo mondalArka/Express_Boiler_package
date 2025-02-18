@@ -1,0 +1,33 @@
+const joi = require("joi")
+
+const registerJoi = joi.object({
+    name: joi.string().required().messages({ "any.required": "Name is required", "string.empty": "Name cannot be empty" }),
+    email: joi.string().email({ tlds: { allow: true } }).required().messages({
+        "any.required": "Email is required",
+        "string.empty": "Email cannot be empty",
+    }),
+    password: joi.string().required().messages({ "any.required": "Password is required", "string.empty": "Password cannot be empty" })
+})
+
+const loginJoi = joi.object({
+    email: joi.string().email({ tlds: { allow: true } }).required().messages({
+        "any.required": "Email is required",
+        "string.empty": "Email cannot be empty",
+    }),
+    password: joi.string().required().messages({ "any.required": "Password is required", "string.empty": "Password cannot be empty" })
+})
+
+const registerValidation = async (req, res, next) => {
+    await registerJoi.validateAsync(req.body);
+    next();
+}
+
+const loginValidation = async (req, res, next) => {
+    await loginJoi.validateAsync(req.body);
+    next();
+}
+
+module.exports = {
+    registerValidation,
+    loginValidation
+}

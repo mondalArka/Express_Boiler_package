@@ -2,37 +2,21 @@ import { writeFile, readFile } from "fs/promises";
 import * as path from "path";
 export default class serviceWriting {
     public static async ServiceMongoWriting(dirName:string): Promise<void> {
-        try {
-            let reading = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceMongoContent.txt"))
-            let index = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.js`, reading)
-            console.log("Finished writing service.js");
-        } catch (err) {
-            console.log("Error in writing service file!", err);
-        }
+            let reading: Buffer = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceMongoContent.txt"))
+            let index: void = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.js`, reading)
     }
 
     public static async ServiceMongoWritingJWT(dirName:string): Promise<void> {
-        try {
-            let reading = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceContentJWT.txt"))
-            let index = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.js`, reading)
-            console.log("Finished writing service.js");
-        } catch (err) {
-            console.log("Error in writing service file!", err);
-        }
+            let reading: Buffer = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceContentJWT.txt"))
+            let index: void = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.js`, reading)
     }
 
     public static async ServiceMySqlWriting(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceMySqlContent.txt"))
-            let index = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.ts`, reading)
-            console.log("Finished writing service.ts");
-        } catch (err) {
-            console.log("Error in writing service file!", err);
-        }
+            let index: void = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.ts`, reading)
     }
 
     public static async ServiceMySqlWritingWithJWT(dirName:string): Promise<void> {
-        try {
             let reading: Buffer = await readFile(path.join(__dirname,"../","templates","ServiceWrite","serviceMySqlContent.txt"))
             let str: string = reading.toString("utf-8");
             str= str.replace(`});
@@ -53,11 +37,7 @@ export default class serviceWriting {
     }`)
 
     str=str.replace(`import { compare, hash} from "bcrypt";`,`import { compare, hash} from "bcrypt";\nimport  JWTService  from "../utils/jwt"`)
-            let index = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.ts`, str)
-            console.log("Finished writing service.ts");
-        } catch (err) {
-            console.log("Error in writing service file!", err);
-        }
+            let index: void = await writeFile(process.cwd() + `/${dirName}/src/services/initialService.ts`, str)
     }
 }
 

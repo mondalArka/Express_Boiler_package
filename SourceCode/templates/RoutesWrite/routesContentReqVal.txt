@@ -1,14 +1,11 @@
 const { initialController } = require("../controllers/initialController");
 const { asyncHandler } = require("../utils/asyncHandler")
-const authentication = require("../middleware/authValidation");
-
+const { registerValidation } = require("../validators/authValidation")
 const express = require("express")
 
 const initialRouter = express.Router()
 
 initialRouter.post("/register", asyncHandler(registerValidation), asyncHandler(initialController.registration))
-initialRouter.post("/login",asyncHandler(LoginValidation), asyncHandler(initialController.login))
-initialRouter.use(asyncHandler(authentication.authCheck))
-initialRouter.get("/", asyncHandler(initialController.viewUser))
+initialRouter.get("/:id", asyncHandler(initialController.viewUser))
 
 module.exports = { initialRouter }

@@ -4,42 +4,25 @@ export default class prismaInit {
     public static async prismaExecLinux(sys: string, dirPath: string): Promise<void> {
         execFile("npx", ["prisma", "init"], { cwd: dirPath }, (err: ExecFileException | null, stdout: string, stderr: string) => {
             if (err) {
-                console.log("Error in initializing prisma!: ", err);
+                console.log("\x1b[31mError in initializing prisma: \x1b[0m", err);
                 process.exit(1);
-            } else console.log("Prisma initialized successfully!");
-
-            // needs to be checked .env already created when prisma initialized
-            execFile("touch", [".env"], { cwd: dirPath }, (err: ExecFileException | null, stdout: string, stderr: string) => {
-                if (err) {
-                    console.log("Error in creating .env!: ", err);
-                    process.exit(1)
-                }
-                packMod.scriptPackage(sys, dirPath).then(() => {
-                    Events.EmitMessage("installed", {});
-                }).catch(err => console.log("Error in scripts")
-                );
-            })
+            } else console.log("\x1b[32mPrisma initialized\x1b[0m");
+            packMod.scriptPackage(sys, dirPath).then(() => {
+                Events.EmitMessage("installed", {});
+            }).catch(err => console.log("\x1b[31mError in scripts\x1b[0m")
+            );
         })
     }
 
     public static async prismaExecWindows(sys: string, dirPath: string): Promise<void> {
         execFile("npx.cmd", ["prisma", "init"], { cwd: dirPath }, (err: ExecFileException | null, stdout: string, stderr: string) => {
             if (err) {
-                console.log("Error in initializing prisma!: ", err);
+                console.log("\x1b[31mError in initializing prisma!: \x1b[0m", err);
                 process.exit(1);
-            } else console.log("Prisma initialized successfully!");
-
-            // execFile("cmd.exe", ["/c","echo. > .env"], { cwd: dirPath }, (err: ExecFileException | null, stdout: string, stderr: string) => {
-            //     if (err) {
-            //         console.log("Error in creating .env!: ", err);
-            //         process.exit(1)
-            //     }
-
-            // })
-
+            } else console.log("\x1b[32mPrisma initialized...\x1b[0m");
             packMod.scriptPackage(sys, dirPath).then(() => {
                 Events.EmitMessage("installed", {});
-            }).catch(err => console.log("Error in scripts")
+            }).catch(err => console.log("\x1b[31mError in scripts!\x1b[0m")
             );
         })
     }

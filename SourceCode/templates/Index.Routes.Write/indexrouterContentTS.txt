@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import initialRouter  from "../routes/initialRoutes"; // Adjust the path as necessary
+import initialRouter  from "./initialRoutes"; // Adjust the path as necessary
 
 const indexRouter: Router = express.Router();
 

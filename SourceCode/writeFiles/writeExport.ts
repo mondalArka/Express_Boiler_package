@@ -14,7 +14,8 @@ import promiseWriting from "./promise.Write";
 import prismaHashWrite from "./prismahash";
 import prismaSchemaWrite from "./prismaSchema"
 import tsConfigWriting from "./tsConfigWrite";
-import interfaces from "./interfaceWrite"
+import interfaces from "./interfaceWrite";
+import ReqValWrite from "./DTOWrite";
 import CommomModuleInvoke from "./common";
 
 export { authWriting as authWriting }
@@ -35,3 +36,4 @@ export { prismaHashWrite as prismaHashWrite }
 export { prismaSchemaWrite as prismaSchemaWrite }
 export { tsConfigWriting as tsConfigWriting }
 export { interfaces as interfaces }
+export { ReqValWrite as ReqValWrite }

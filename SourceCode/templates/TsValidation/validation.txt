@@ -1,0 +1,19 @@
+import { Request, Response, NextFunction } from 'express';
+import { validate, ValidationError } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
+
+export function validateInput<T>(classType: any) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const input = plainToInstance(classType, req.body);
+        const errors = await validate(input,{ whitelist: true, forbidNonWhitelisted: true });
+        if (errors.length > 0) {
+            const constraints = Object.values(errors[0].constraints || {});
+            let arr: Array<any> = [];
+            if (constraints.length == 0) { // if constraint is empty then accessing the nested constraint
+                arr = Object.entries(errors[0].children[0].children[0].constraints)[0]
+            }
+            return res.status(400).json({ statusCode: 400, message: !constraints[0] ? arr[1] : constraints[0], response: {} });
+        }
+        next();
+    };
+}

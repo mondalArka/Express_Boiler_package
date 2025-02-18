@@ -3,12 +3,11 @@ import { npmInstall } from "./exports";
 export default class Execution {
     public static createDirectoryAndInitialize(...args: Array<string | Array<string>>): void {
         try {
-            console.log(args, "args");
             execFile(args[0] as string, args[1] as Array<string>, (err: any, stdout: any, stderr: any) => {
                 if (err) {
-                    console.log("Error in creating directories!");
-                    console.log(err)
-                } else console.log("Directories created!");
+                    console.log("\x1b[31mError in creating directories: \x1b[0m",err);
+                    process.exit(1);
+                } else console.log("\x1b[32mDirectories created...\x1b[0m");
 
                 this.installDependenciesAndModify(args)
             })

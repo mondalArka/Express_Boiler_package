@@ -5,7 +5,6 @@ export default class tsConfigWriting {
         try {
             let reading = await readFile(path.join(__dirname,"../","templates","TsConfigWrite","TSConfig.json"))
             let index = await writeFile(process.cwd() + `/${dirName}/tsconfig.json`, reading)
-            console.log("Finished writing tsconfig.json");
         } catch (err) {
             console.log("Error in writing tsconfig file!", err);
         }

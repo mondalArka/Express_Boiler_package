@@ -33,12 +33,21 @@ export default class create {
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
                         args.push(`${dirName}/src/config`, `${dirName}/src/models`);
-                        argInstall.push("mongoose","nodemon");
+                        argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
 
-                    ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier,dirName)
+                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")){
+                        argInstall.push("joi");
+                        args.push(`${dirName}/src/validators`);
+                    }
+                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")){
+                        argInstall.push("class-validator","class-transformer");
+                        args.push(`${dirName}/src/DTO`,`${dirName}/src/middleware`)
+                    }
+
+                    ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }
                 case "win32": {
@@ -64,17 +73,26 @@ export default class create {
                         "bcrypt"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
-                        args.push(`${dirName}\\src\\middleware`)
+                        args.push(`${dirName}/src/middleware`)
                         argInstall.push("jsonwebtoken");
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
-                        args.push(`${dirName}\\src\\config`,`${dirName}\\src\\models`);
-                        argInstall.push("mongoose","nodemon");
+                        args.push(`${dirName}/src/config`, `${dirName}/src/models`);
+                        argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
 
-                    ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier,dirName)
+                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")){
+                        argInstall.push("joi");
+                        args.push(`${dirName}/src/validators`);
+                    }
+                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")){
+                        argInstall.push("class-validator","class-transformer");
+                        args.push(`${dirName}/src/DTO`,`${dirName}/src/middleware`)
+                    }
+
+                    ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }
                 // case "darwin": {
@@ -102,12 +120,13 @@ export default class create {
                 //     break;
                 // }
                 default: {
-                    console.log("OS Not Supported!");
+                    console.log("\x1b[31mOS Not Supported!\x1b[0m");
                 }
             }
         } catch (err) {
-            console.log(err);
-            throw err
+            console.log("\x1b[31mError in creating directories or installing dependencies!\x1b[30m");
+            console.log(`\x1b[31m${err}\x1b[0m`);
+            process.exit(1);
         }
     }
 }
