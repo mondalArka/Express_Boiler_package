@@ -177,6 +177,18 @@ jobs:
             curl -L https://community.chocolatey.org/install.ps1 -o install.ps1
 
       - run:
+          name: Download CMake installer
+          command: |
+            curl -L https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-windows-x86_64.msi -o cmake_installer.msi
+
+      - run:
+          name: Install CMake
+          command: |
+            msiexec /i cmake_installer.msi /quiet /norestart
+
+
+
+      - run:
           name: Add Chocolatey to PATH
           command: |
             echo "Adding Chocolatey to PATH..."
