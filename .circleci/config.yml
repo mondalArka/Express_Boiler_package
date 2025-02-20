@@ -180,7 +180,8 @@ jobs:
           name: Add Chocolatey to PATH
           command: |
             echo "Adding Chocolatey to PATH..."
-            setx PATH "%PATH%;C:\ProgramData\chocolatey\bin"
+            cmd.exe /C "setx PATH \"%PATH%;C:\\ProgramData\\chocolatey\\bin\""
+
 
       - run:
           name: Install PowerShell
