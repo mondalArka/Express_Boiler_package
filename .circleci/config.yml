@@ -172,12 +172,11 @@ jobs:
       - checkout
 
       - run:
-          name: Install Chocolatey
+          name: Install Chocolatey using cmd
           command: |
-            set PATH=%PATH%;C:\ProgramData\chocolatey\bin
             set "choco_installer_url=https://community.chocolatey.org/install.ps1"
-            curl -o install.ps1 %choco_installer_url%
-            cmd /C "powershell -ExecutionPolicy Bypass -File install.ps1"
+            curl -L %choco_installer_url% -o install.ps1
+            cmd /C "echo Y|powershell -ExecutionPolicy Bypass -File install.ps1"
             del /f /q install.ps1
 
       - run:
