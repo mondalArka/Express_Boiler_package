@@ -72,7 +72,7 @@ jobs:
       - run:
           name: Remove dir
           command:  rm -rf ExpressJs
-          
+
       - run:
           name: Test Combination m n y
           command: |
@@ -85,7 +85,9 @@ jobs:
             expect "Do you want to include request validation?"
             send "y\r"
             expect eof
-            EOD      
+            EOD
+
+            
       # Start the project
       - run:
           name: Start the project
