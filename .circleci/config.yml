@@ -173,15 +173,13 @@ jobs:
 
       - run:
           name: Check if PowerShell is installed
-          command: |
-            powershell -Command "Write-Host 'PowerShell is available!'"
+          command: powershell -Command "Write-Host 'PowerShell is available!'"
 
       - run:
           name: Install PowerShell
           command: |
             choco install powershell-core
             powershell -Command "Write-Host 'PowerShell is installed!'"
-
 
 
       - run:
