@@ -172,46 +172,19 @@ jobs:
       - checkout
 
       - run:
-          name: Download Chocolatey installation script
+          name: Install Chocolatey
           command: |
-            curl -L https://community.chocolatey.org/install.ps1 -o install.ps1
+            Set-ExecutionPolicy Bypass -Scope Process -Force
+            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+            Invoke-WebRequest -Uri 'https://community.chocolatey.org/install.ps1' -OutFile 'install.ps1'
+            .\install.ps1
 
-      - run:
-          name: Download CMake installer
-          command: |
-            curl -L https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3-windows-x86_64.msi -o cmake_installer.msi
-
-      - run:
-          name: Install CMake
-          command: |
-            msiexec /i cmake_installer.msi /quiet /norestart
-
-
-
+      # Add Chocolatey to PATH
       - run:
           name: Add Chocolatey to PATH
           command: |
-            echo "Adding Chocolatey to PATH..."
-            cmd.exe /C "setx PATH \"%PATH%;C:\\ProgramData\\chocolatey\\bin\""
-
-
-      - run:
-          name: Install PowerShell
-          command: |
-            choco install powershell-core
-            powershell -Command "Write-Host 'PowerShell is installed!'"
-      
-      - run:
-          name: Check if PowerShell is installed
-          command: powershell -Command "Write-Host 'PowerShell is available!'"
-
-      - run:
-          name: Install Cygwin and Expect
-          command: |
-            Invoke-WebRequest -Uri 'https://www.cygwin.com/setup-x86_64.exe' -OutFile 'setup-x86_64.exe'
-            Start-Process 'setup-x86_64.exe' -ArgumentList '/quiet', '/install', '/packages', 'expect' -NoNewWindow -Wait
-            cygwin --version
-            expect --version
+            $env:Path += ";C:\ProgramData\chocolatey\bin"
+            [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
 
       - run:
           name: Install rimraf
@@ -220,7 +193,7 @@ jobs:
       - run:
           name: Install Node
           command: |
-            choco install nodejs-lts
+            choco install nodejs-lts -y
 
       - run:
           name: Check node version
