@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+  Run_Ubuntu:
+    docker:
+      - image: node:latest
+    steps:
+      # Checkout the code from your Git repository
+      - checkout
+      
+      # Install npm dependencies
+      - run:
+          name: Install npm dependencies
+          command: |
+            cd Express_Boiler_package && npm install          
+
+      # Run for different combinations of inputs
+      - run:
+          name: Test Combination m y y
+          command: cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\ny\ny\n"
+
+      - run:
+          name: Test Combination m y n
+          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\ny\nn\n"
+            
+
+      - run:
+          name: Test Combination m n y
+          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\nn\ny\n"
+
+      - run:
+          name: Test Combination m n n
+          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\nn\nn\n"
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - Run_Ubuntu
