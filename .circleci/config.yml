@@ -174,11 +174,11 @@ jobs:
       - run:
           name: Install Chocolatey
           command: |
-            powershell -Command Set-ExecutionPolicy Bypass -Scope Process -Force;
-            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-            Invoke-WebRequest https://community.chocolatey.org/install.ps1 -OutFile install.ps1;
-            powershell -ExecutionPolicy Bypass -File install.ps1;
-            Remove-Item -Force install.ps1
+            set PATH=%PATH%;C:\ProgramData\chocolatey\bin
+            set "choco_installer_url=https://community.chocolatey.org/install.ps1"
+            curl -o install.ps1 %choco_installer_url%
+            cmd /C "powershell -ExecutionPolicy Bypass -File install.ps1"
+            del /f /q install.ps1
 
       - run:
           name: Install PowerShell
