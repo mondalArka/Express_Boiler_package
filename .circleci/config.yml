@@ -31,6 +31,10 @@ jobs:
           name: Test Combination m n n
           command: rm -rf ExpressJs && echo -e "m\nn\nn\n" | npm run linux
 
+      - run:
+          name: Start the project
+          command: cd ExpressJs && npm start
+
 workflows:
   version: 2
   build:
