@@ -11,8 +11,7 @@ jobs:
       # Install npm dependencies
       - run:
           name: Install npm dependencies
-          command: |
-            cd Express_Boiler_package && npm install          
+          command: pwd && cd Express_Boiler_package && npm install          
 
       # Run for different combinations of inputs
       - run:
