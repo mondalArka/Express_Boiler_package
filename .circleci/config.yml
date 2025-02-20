@@ -15,25 +15,28 @@ jobs:
 
       # Run for different combinations of inputs
       - run:
-          name: Test Combination m y y
-          command: rm -rf ExpressJs && echo -e "m\ny\ny\n" | npm run linux
+          name: Remove dir
+          command: rm -rf ExpressJs
+      - run:
+          name: Test Combination m y y 1
+          command:  echo -e "m\n" | npm run linux
 
       - run:
-          name: Test Combination m y n
-          command: rm -rf ExpressJs && echo -e "m\ny\nn\n" | npm run linux
+          name: Test Combination m y y 2
+          command: echo -e "y\n"
             
 
       - run:
-          name: Test Combination m n y
-          command: rm -rf ExpressJs && echo -e "m\nn\ny\n" | npm run linux
+          name: Test Combination m y y 3
+          command: echo -e "y\n"
 
       - run:
-          name: Test Combination m n n
-          command: rm -rf ExpressJs && echo -e "m\nn\nn\n" | npm run linux
-
-      - run:
-          name: Start the project
+          name: show dir
           command: ls
+
+      # - run:
+      #     name: Start the project
+      #     command: ls
 
 workflows:
   version: 2
