@@ -19,24 +19,24 @@ jobs:
           command: rm -rf ExpressJs
       - run:
           name: Test Combination m y y 1
-          command:  echo -e "m\n" | npm run linux
-
-      - run:
-          name: Test Combination m y y 2
-          command: echo -e "y\n"
-            
-
-      - run:
-          name: Test Combination m y y 3
-          command: echo -e "y\n"
-
-      - run:
-          name: show dir
-          command: ls
+          command:  echo -e "m\n" | echo -e "y\n" | echo -e "y\n" | npm run linux
 
       # - run:
-      #     name: Start the project
-      #     command: ls
+      #     name: Test Combination m y y 2
+      #     command: echo -e "y\n" | npm run linux
+            
+
+      # - run:
+      #     name: Test Combination m y y 3
+      #     command: echo -e "y\n" | npm run linux
+
+      # - run:
+      #     name: Test Combination m y n 1
+      #     command: echo -e "m\nn\nn\n" | npm run linux
+
+      - run:
+          name: Start the project
+          command: ls
 
 workflows:
   version: 2
