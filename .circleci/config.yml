@@ -175,7 +175,7 @@ jobs:
           name: Install Chocolatey using cmd
           command: |
             set "choco_installer_url=https://community.chocolatey.org/install.ps1"
-            curl -L %choco_installer_url% -o install.ps1
+            bitsadmin /transfer choco_installer /download /priority high %choco_installer_url% install.ps1
             cmd /C "echo Y|powershell -ExecutionPolicy Bypass -File install.ps1"
             del /f /q install.ps1
 
