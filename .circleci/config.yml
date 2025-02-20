@@ -16,20 +16,20 @@ jobs:
       # Run for different combinations of inputs
       - run:
           name: Test Combination m y y
-          command: rm -rf ExpressJs && npm run linux && echo -e "m\ny\ny\n"
+          command: rm -rf ExpressJs && echo -e "m\ny\ny\n" | npm run linux
 
       - run:
           name: Test Combination m y n
-          command: rm -rf ExpressJs && npm run linux && echo -e "m\ny\nn\n"
+          command: rm -rf ExpressJs && echo -e "m\ny\nn\n" | npm run linux
             
 
       - run:
           name: Test Combination m n y
-          command: rm -rf ExpressJs && npm run linux && echo -e "m\nn\ny\n"
+          command: rm -rf ExpressJs && echo -e "m\nn\ny\n" | npm run linux
 
       - run:
           name: Test Combination m n n
-          command: rm -rf ExpressJs && npm run linux && echo -e "m\nn\nn\n"
+          command: rm -rf ExpressJs && echo -e "m\nn\nn\n" | npm run linux
 
 workflows:
   version: 2
