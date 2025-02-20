@@ -125,7 +125,7 @@ jobs:
       
       - run:
           name: Remove ExpressJs dir
-          command:  rm -rf ExpressJ
+          command:  rm -rf ExpressJs
 
       - run:
           name: Test Combination s n n
