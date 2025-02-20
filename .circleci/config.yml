@@ -34,6 +34,10 @@ jobs:
             EOD
 
       - run:
+          name: Remove dir
+          command:  rm -rf ExpressJs
+
+      - run:
           name: Test Combination m y n
           command: |
             /usr/bin/expect \<<EOD
@@ -46,6 +50,10 @@ jobs:
             send "n\r"
             expect eof
             EOD
+
+      - run:
+          name: Remove dir
+          command:  rm -rf ExpressJs
 
       - run:
           name: Test Combination m n n
@@ -61,6 +69,10 @@ jobs:
             expect eof
             EOD
 
+      - run:
+          name: Remove dir
+          command:  rm -rf ExpressJs
+          
       - run:
           name: Test Combination m n y
           command: |
