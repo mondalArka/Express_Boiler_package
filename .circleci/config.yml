@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Test Combination m y y
           command: |
-            /usr/bin/expect <<EOD
+            /usr/bin/expect \<<EOD
             spawn npm run linux
             expect "Which database you want to install?"
             send "m\r"
