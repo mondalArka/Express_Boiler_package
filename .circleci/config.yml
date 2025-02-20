@@ -11,29 +11,29 @@ jobs:
       # Install npm dependencies
       - run:
           name: Install npm dependencies
-          command: pwd && ls && npm install          
+          command: pwd && ls && npm install
 
-      # Run for different combinations of inputs
+      # Install expect (required for automated input)
       - run:
-          name: Remove dir
-          command: rm -rf ExpressJs
+          name: Install expect
+          command: apt-get update && apt-get install -y expect
+
+      # Run the script with automated input using expect
       - run:
-          name: Test Combination m y y 1
-          command:  echo -e "m\n" | echo -e "y\n" | echo -e "y\n" | npm run linux
+          name: Test Combination m y y
+          command: |
+            /usr/bin/expect <<EOD
+            spawn npm run linux
+            expect "Which database you want to install?"
+            send "m\r"
+            expect "Do you want to install jsonwebtoken for authentication?"
+            send "y\r"
+            expect "Do you want to include request validation?"
+            send "y\r"
+            expect eof
+            EOD
 
-      # - run:
-      #     name: Test Combination m y y 2
-      #     command: echo -e "y\n" | npm run linux
-            
-
-      # - run:
-      #     name: Test Combination m y y 3
-      #     command: echo -e "y\n" | npm run linux
-
-      # - run:
-      #     name: Test Combination m y n 1
-      #     command: echo -e "m\nn\nn\n" | npm run linux
-
+      # Start the project
       - run:
           name: Start the project
           command: ls
