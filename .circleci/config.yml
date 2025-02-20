@@ -16,20 +16,20 @@ jobs:
       # Run for different combinations of inputs
       - run:
           name: Test Combination m y y
-          command: cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\ny\ny\n"
+          command: rm -rf ExpressJs && npm run linux && echo -e "m\ny\ny\n"
 
       - run:
           name: Test Combination m y n
-          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\ny\nn\n"
+          command: rm -rf ExpressJs && npm run linux && echo -e "m\ny\nn\n"
             
 
       - run:
           name: Test Combination m n y
-          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\nn\ny\n"
+          command: rm -rf ExpressJs && npm run linux && echo -e "m\nn\ny\n"
 
       - run:
           name: Test Combination m n n
-          command:  cd Express_Boiler_package && rm -rf ExpressJs && npm run linux && echo -e "m\nn\nn\n"
+          command: rm -rf ExpressJs && npm run linux && echo -e "m\nn\nn\n"
 
 workflows:
   version: 2
