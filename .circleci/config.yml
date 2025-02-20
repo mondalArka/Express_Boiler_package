@@ -177,6 +177,12 @@ jobs:
             curl -L https://community.chocolatey.org/install.ps1 -o install.ps1
 
       - run:
+          name: Add Chocolatey to PATH
+          command: |
+            echo "Adding Chocolatey to PATH..."
+            setx PATH "%PATH%;C:\ProgramData\chocolatey\bin"
+
+      - run:
           name: Install PowerShell
           command: |
             choco install powershell-core
