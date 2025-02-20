@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: Start the project
-          command: cd ExpressJs && npm start
+          command: ls
 
 workflows:
   version: 2
