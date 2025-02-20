@@ -7,6 +7,7 @@ export default class create {
         try {
             const systemIdentifier: string = platform()
             switch (systemIdentifier) {
+                case "darwin":
                 case "linux": {
                     const command: string = "mkdir";
                     const args: Array<string> = [
@@ -38,13 +39,13 @@ export default class create {
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")){
+                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
                         args.push(`${dirName}/src/validators`);
                     }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")){
-                        argInstall.push("class-validator","class-transformer");
-                        args.push(`${dirName}/src/DTO`,`${dirName}/src/middleware`)
+                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
+                        argInstall.push("class-validator", "class-transformer");
+                        args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
                     }
 
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
@@ -83,42 +84,18 @@ export default class create {
                     if (inputs[0] == "S" || inputs[0] == "s")
                         argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")){
+                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
                         args.push(`${dirName}/src/validators`);
                     }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")){
-                        argInstall.push("class-validator","class-transformer");
-                        args.push(`${dirName}/src/DTO`,`${dirName}/src/middleware`)
+                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
+                        argInstall.push("class-validator", "class-transformer");
+                        args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
                     }
 
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }
-                // case "darwin": {
-                //     let exist = ExistDir.checkDirExists();
-                //     if (exist === 1) break;
-                //     this.ExecuteCommand.createDirectory()
-                //     break;
-                // }
-                // case "freebsd": {
-                //     let exist = ExistDir.checkDirExists();
-                //     if (exist === 1) break;
-                //     this.ExecuteCommand.createDirectory()
-                //     break;
-                // }
-                // case "openbsd": {
-                //     let exist = ExistDir.checkDirExists();
-                //     if (exist === 1) break;
-                //     this.ExecuteCommand.execCommand()
-                //     break;
-                // }
-                // case "netbsd": {
-                //     let exist = this.CheckDir.checkDirExists();
-                //     if (exist === 1) break;
-                //     this.ExecuteCommand.createDirectory()
-                //     break;
-                // }
                 default: {
                     console.log("\x1b[31mOS Not Supported!\x1b[0m");
                 }
