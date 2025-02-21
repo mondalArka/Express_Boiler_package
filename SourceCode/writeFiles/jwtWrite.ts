@@ -7,7 +7,7 @@ export default class jwtWriting {
     }
 
     public static async jwtSqlWriting(dirName:string): Promise<void> {
-            let reading: Buffer = await readFile(process.cwd() + "/SourceCode/templates/JWTWrite/jwtContentTS.txt")
+            let reading: Buffer = await readFile(path.join(__dirname,"../", "templates","JWTWrite","jwtContentTS.txt"))
             let index: void = await writeFile(process.cwd() + `/${dirName}/src/utils/jwt.ts`, reading)
     }
 }
