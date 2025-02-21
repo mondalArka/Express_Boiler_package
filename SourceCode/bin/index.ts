@@ -7,7 +7,7 @@ class setup {
         let num: number = 2;
         let name: string = process.argv[2];
         if (name === undefined || name === "" || name === null) {
-            console.log("\x1b[32mPlease provide a directory name!\x1b[0m");
+            console.log("\x1b[33mPlease provide a directory name!\x1b[0m");
             do {
                 name = await ExistDir.noName();
                 num = await ExistDir.checkDirExists(name);
