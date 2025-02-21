@@ -30,13 +30,13 @@ export default class inputs {
                 }
 
             console.log("");
-            const reqVal = await rl.question("Do you want to include request validation\nPress (Y) for Yes or (N) for No: ")
+            const reqVal = await rl.question("Do you want to include request validation?\nPress (Y) for Yes or (N) for No: ")
 
             if (reqVal.trim() != "" && (reqVal.trim() == "y" || reqVal.trim() == "Y" || reqVal.trim() == "n" || reqVal.trim() == "N")) userInputs.push(reqVal)
             else {
                 do {
                     console.log("\x1b[31mInvalid Input while choosing Validation.Try again!\x1b[0m");
-                    DBC = await rl.question("Do you want to include request validation\nPress (Y) for Yes or (N) for No: ")
+                    DBC = await rl.question("Do you want to include request validation?\nPress (Y) for Yes or (N) for No: ")
                 } while (DBC.toLowerCase().toLowerCase().trim() !== "y" && DBC.toLowerCase().toLowerCase().trim() !== "n")
                     userInputs.push(DBC);
             }            

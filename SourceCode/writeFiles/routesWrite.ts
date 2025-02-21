@@ -20,7 +20,7 @@ initialRouter.post("/login", asyncHandler(initialController.login))`)
             let reading: Buffer = await readFile(path.join(__dirname,"../","templates","RoutesWrite","routesContent.txt"))
             let str: string = reading.toString("utf-8");
             str= str.replace(`const { asyncHandler } = require("../utils/asyncHandler")`,`const { asyncHandler } = require("../utils/asyncHandler")
-                const { registerValidation } = require("../validators/authValidation")`);
+const { registerValidation } = require("../validators/authValidation")`);
             str= str.replace(`initialRouter.post("/register", asyncHandler(initialController.registration))
 initialRouter.get("/:id", asyncHandler(initialController.viewUser))`,`initialRouter.post("/register",asyncHandler(registerValidation), asyncHandler(initialController.registration))
 initialRouter.get("/:id", asyncHandler(initialController.viewUser))`)

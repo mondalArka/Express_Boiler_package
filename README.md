@@ -32,6 +32,7 @@ npx boiler-plate <your-directory-name>
 ```
 
 ### 2. Directly Execute the package
+Use this command in the bash:
 ```bash
 npx boiler-plate-expressjs <your-directory-name>
 
