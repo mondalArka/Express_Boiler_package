@@ -71,7 +71,8 @@ export default class create {
                         "express",
                         "cors",
                         "dotenv",
-                        "bcrypt"
+                        "bcrypt",
+                        "rimraf"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
                         args.push(`${dirName}\\src\\middleware`)
