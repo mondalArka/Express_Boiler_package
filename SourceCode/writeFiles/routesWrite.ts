@@ -22,8 +22,7 @@ initialRouter.post("/login", asyncHandler(initialController.login))`)
             str= str.replace(`const { asyncHandler } = require("../utils/asyncHandler")`,`const { asyncHandler } = require("../utils/asyncHandler")
 const { registerValidation } = require("../validators/authValidation")`);
             str= str.replace(`initialRouter.post("/register", asyncHandler(initialController.registration))
-initialRouter.get("/:id", asyncHandler(initialController.viewUser))`,`initialRouter.post("/register",asyncHandler(registerValidation), asyncHandler(initialController.registration))
-initialRouter.get("/:id", asyncHandler(initialController.viewUser))`)
+initialRouter.get("/:id", asyncHandler(initialController.viewUser))`,`initialRouter.post("/register",asyncHandler(registerValidation), asyncHandler(initialController.registration))\ninitialRouter.get("/:id", asyncHandler(initialController.viewUser))`)
             let index: void = await writeFile(process.cwd() + `/${dirName}/src/routes/initialRoutes.js`, str)
     }
 

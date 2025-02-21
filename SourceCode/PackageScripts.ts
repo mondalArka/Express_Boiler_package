@@ -10,13 +10,13 @@ export default class packMod {
             })
             let str = JSON.parse(reading.toString("utf-8"));
             if (sys == "linux") {
-                str["scripts"]["start"] = "rm -rf dist && npm run build && node ./dist/index.js"
-                str["scripts"]["build"] = "rm -rf && tsc -p ."
+                str["scripts"]["start"] = "npm run build && node ./dist/index.js"
+                str["scripts"]["build"] = "rm -rf dist && tsc -p ."
                 str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
                 str["scripts"]["client:generate"] = "npx prisma generate"
             }
             if (sys == "win32") {
-                str["scripts"]["start"] = "rimraf dist && npm run build && node ./dist/index.js"
+                str["scripts"]["start"] = "npm run build && node ./dist/index.js"
                 str["scripts"]["build"] = "rimraf dist && tsc -p ."
                 str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
                 str["scripts"]["client:generate"] = "npx prisma generate"

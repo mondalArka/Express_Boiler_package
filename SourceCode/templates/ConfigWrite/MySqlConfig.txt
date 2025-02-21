@@ -1,9 +1,10 @@
-const { DataSource, DataSourceOptions } =require("typeorm");
-require("dotenv").config()
-const options = {
+import { DataSource, DataSourceOptions } from "typeorm";
+import * as dotenv from "dotenv";
+dotenv.config()
+const options: DataSourceOptions = {
     type: "mysql",
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    port: Number(process.env.DB_PORT),
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
@@ -14,4 +15,4 @@ const options = {
     // logging: true
 }
 
-module.exports = new DataSource(options);
+export default new DataSource(options);

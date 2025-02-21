@@ -10,16 +10,16 @@ export default class typeorm {
             })
             let str = JSON.parse(reading.toString("utf-8"));
             if (sys == "linux") {
-                str["scripts"]["start"] = "rm -rf dist && npm run build && node ./dist/index.js"
-                str["scripts"]["build"] = " tsc -p ."
-                str["scripts"]["generate:migrate"] = "rm -rf dist && npm run build && typeorm-ts-node-esm migration:generate src/migrations/${TABLE_NAME} -d src/config/dataSource.ts"
-                str["scripts"]["migrate"] = "rm -rf dist && npm run build && typeorm-ts-node-esm migration:run -d src/config/dataSource.ts"
+                str["scripts"]["start"] = "npm run build && node ./dist/index.js"
+                str["scripts"]["build"] = "rm -rf dist && tsc -p ."
+                str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate dist/migrations/${TABLE_NAME} -d dist/config/dataSource.js"
+                str["scripts"]["migrate"] = "npm run build && typeorm migration:run -d src/config/dataSource.ts"
             }
             if (sys == "win32") {
-                str["scripts"]["start"] = "rimraf dist && npm run build && node ./dist/index.js"
-                str["scripts"]["build"] = "tsc -p ."
-                str["scripts"]["generate:migrate"] = "rimraf dist && npm run build && typeorm-ts-node-esm migration:generate src/migrations/${TABLE_NAME} -d src/config/dataSource.ts"
-                str["scripts"]["client:generate"] = "rimraf dist && npm run build && typeorm-ts-node-esm migration:run -d src/config/dataSource.ts"
+                str["scripts"]["start"] = "npm run build && node ./dist/index.js"
+                str["scripts"]["build"] = "rimraf dist && tsc -p ."
+                str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate src/migrations/${TABLE_NAME} -d src/config/dataSource.ts"
+                str["scripts"]["client:generate"] = "npm run build && typeorm migration:run -d src/config/dataSource.ts"
             }
             let writes = await writeFile(pacakgePath, JSON.stringify(str, null, 2))
             Promise.resolve(writes).catch(err => {

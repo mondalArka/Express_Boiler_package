@@ -1,6 +1,7 @@
 import User from "../Entity/User"
-import { compare} from "bcrypt";
-import User,{ response } from "../utils/interfaces"
+import { compare } from "bcrypt";
+import JWTService from "../utils/jwt";
+import { response } from "../utils/interfaces";
 
 export default class InitialService {
 
@@ -11,9 +12,7 @@ export default class InitialService {
   }
 
     public static async loginUser(body:User): Promise<response> {
-        let data = await User.findBy({
-      where: { email: body.email },
-    });
+        let data = await User.findOne({where:{id:Number(body.id)}});
         if (!data) throw new Error("User not found!")
         if (!await compare(body.password, data.password)) throw new Error("Wrong Password!")
         let token = JWTService.generateToken({ id: data.id, email: data.email })
@@ -23,9 +22,7 @@ export default class InitialService {
 
   // Get a user by ID
  public static async getUser(id: string): Promise<response> {
-    let data= await User.findBy({
-      where: { id: Number(id) },
-    });
+    let data= await User.findOne({where:{id:Number(id)}});
 
     return { status:200,message:"Fetched user data",response:data}
   }

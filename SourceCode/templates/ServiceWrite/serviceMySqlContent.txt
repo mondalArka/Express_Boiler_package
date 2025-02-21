@@ -1,5 +1,5 @@
 import prisma from "../utils/hashing"
-import { compare, hash} from "bcrypt";
+import { compare} from "bcrypt";
 import User,{ response } from "../utils/interfaces"
 
 export default class InitialService {

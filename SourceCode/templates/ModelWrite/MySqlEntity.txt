@@ -1,24 +1,23 @@
-const { Entity, BaseEntity, PrimaryGeneratedColumn, Column } = rqeuire("typeorm")
-const bcrypt = require("bcrypt")
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
+import { hash } from "bcrypt";
+
 @Entity("User")
-class User extends BaseEntity {
+export default class User extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id;
+    id:number;
 
-    @Column("text")
-    name;
+    @Column()
+    name:string;
 
-    @Column("text")
-    email;
+    @Column()
+    email:string;
 
-    @Column("text")
-    password;
+    @Column()
+    password:string;
 
     @BeforeInsert()
     async hashPassword() {
-        this.password = await bcrypt.hash(this.password, 10);
+        this.password = await hash(this.password, 10);
     }
 }
 
-
-module.exports = User

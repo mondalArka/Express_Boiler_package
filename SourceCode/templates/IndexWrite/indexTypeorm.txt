@@ -1,10 +1,12 @@
-import "dotenv/config"; // Use import for dotenv
+import * as dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import apiRouter from "./routes/apiRoutes";
 import AppDataSource from './config/dataSource';
 import ErrorHandlers  from "./utils/error-callback"; // assuming errorCallBack is exported like this
 import cors from "cors";
 import path from "path";
+
+dotenv.config()
 
 // Define the port either from the environment variable or default to 3000
 const port: number = parseInt(process.env.PORT || "3000");
@@ -40,6 +42,5 @@ app.listen(port, (err?: Error) => {
     })
     .catch((err) => {
         console.error("Error during Data Source initialization", err);
-});
-
+    });
 });

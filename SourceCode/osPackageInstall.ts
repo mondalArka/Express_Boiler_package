@@ -14,10 +14,10 @@ export default class packageModify {
             } else console.log("\x1b[32mDependencies installed...\x1b[0m");
             // initialize prisma and client
             if (argument.includes("prisma")) {
-                    execFile("npm", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
+                    execFile("npm", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken","typescript"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
                         if (err) {
                             console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
-                            process.exit(1)
+                            process.exit(1);
                         }
                         console.log("\x1b[32mType package installed...\x1b[0m");
                         Promise.resolve(prismaInit.prismaExecLinux(args[6] as string, args[8] as string)).catch(err => console.log("\x1b[31mError in prisma initialize!\x1b[0m")
@@ -25,7 +25,7 @@ export default class packageModify {
                     })
 
             } else if(argument.includes("typeorm")){
-                execFile("npm",["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"],{cwd:process.cwd()+`/${args[8] as string}`},(err:ExecFileException | null,stdout:string,stderr:string)=>{
+                execFile("npm",["install", "--save-dev","typescript", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"],{cwd:process.cwd()+`/${args[8] as string}`},(err:ExecFileException | null,stdout:string,stderr:string)=>{
                     if(err){    
                         console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
                         process.exit(1)
@@ -68,17 +68,8 @@ export default class packageModify {
         console.log("\x1b[32mDependencies installed...\x1b[0m");
         
         // initialize prisma
-        if (argument.includes("typescript")) {
-            const s1 = spawnSync("npx", ["-v"])
-
-            if (s1.error) {
-                const s2 = spawnSync("npm.cmd", ["install", "-g", "npx"])
-                if (s2.error) {
-                    console.log("\x1b[31mError in installing npx: \x1b[0m" + s2.error.message + "\n" + s2.error.stack);
-                    process.exit(1)
-                }
-            }
-            execFile("npm.cmd", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
+        if (argument.includes("prisma")) {
+            execFile("npm.cmd", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken","typescript","rimraf"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
                 if (err) {
                     console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
                     process.exit(1)
@@ -88,7 +79,7 @@ export default class packageModify {
                 )
             })
         } else if(argument.includes("typeorm")){
-            execFile("npm.cmd",["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"],{cwd:process.cwd()+`/${args[8] as string}`},(err:ExecFileException | null,stdout:string,stderr:string)=>{
+            execFile("npm.cmd",["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken","typescript","rimraf"],{cwd:args[8] as string},(err:ExecFileException | null,stdout:string,stderr:string)=>{
                 if(err){    
                     console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
                     process.exit(1)
@@ -99,22 +90,30 @@ export default class packageModify {
                 }); 
         })
         } else {
-            const reading = readFile(packagePath, (err: NodeJS.ErrnoException | null, data: Buffer) => {
-                if (err) {
-                    console.log("\x1b[31mError in reading package.json: \x1b[0m" + err.message + "\n" + err.stack);
-                    process.exit(1)
-                }
-                let str: any = JSON.parse(data.toString("utf-8"));
-                str["scripts"]["start"] = "nodemon src/index.js";
-                writeFile(packagePath, JSON.stringify(str,null,2), (err: NodeJS.ErrnoException | null) => {
-                    if (err) {
-                        console.log("\x1b[31mError in writing package.json: \x1b[0m" + err.message + "\n" + err.stack);
+            execFile("npm.cmd",["install","--saved-dev","rimraf"],{cwd:args[8] as string},(err:ExecFileException | null,stdout:string,
+                stderr:string)=>{
+                    if(err){
+                        console.log("\x1b[31mError in installing rimraf\x1b[0m",err);
                         process.exit(1)
                     }
-                    console.log("\x1b[32mModified package.json...\x1b[0m");
-                    Events.EmitMessage("installed", {});
+                    console.log("\x1b[32mType package installed...\x1b[0m")
+                    const reading = readFile(packagePath, (err: NodeJS.ErrnoException | null, data: Buffer) => {
+                        if (err) {
+                            console.log("\x1b[31mError in reading package.json: \x1b[0m" + err.message + "\n" + err.stack);
+                            process.exit(1)
+                        }
+                        let str: any = JSON.parse(data.toString("utf-8"));
+                        str["scripts"]["start"] = "nodemon src/index.js";
+                        writeFile(packagePath, JSON.stringify(str,null,2), (err: NodeJS.ErrnoException | null) => {
+                            if (err) {
+                                console.log("\x1b[31mError in writing package.json: \x1b[0m" + err.message + "\n" + err.stack);
+                                process.exit(1)
+                            }
+                            console.log("\x1b[32mModified package.json...\x1b[0m");
+                            Events.EmitMessage("installed", {});
+                        })
+                    });
                 })
-            });
         }
     }
 }

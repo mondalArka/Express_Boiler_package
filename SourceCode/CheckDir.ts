@@ -5,7 +5,7 @@ class checkDir {
     public static async checkDirExists(dirName: string): Promise<number> {
         try {
             if (existsSync(process.cwd() + `/${dirName}`)) {
-                console.log(`\x1b[31mDirectory with name "${dirName}" already exists.Please try again!\x1b[0m`);
+                console.log(`\x1b[31mDirectory already exists with same name.Please try again!\x1b[0m`);
                 return Promise.resolve(1);
             }
             return Promise.resolve(0);

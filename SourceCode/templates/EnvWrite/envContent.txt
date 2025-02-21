@@ -1,2 +1,3 @@
 DB_URL=mongodb://localhost:27017/express-app
 AUTH_SECRET=your_jwt_secret
+PORT = 2000
