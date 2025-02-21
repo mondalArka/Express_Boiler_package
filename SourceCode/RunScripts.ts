@@ -28,7 +28,7 @@ export default class create {
                         "dotenv",
                         "bcrypt"
                     ]
-                    if (inputs[1] == "Y" || inputs[1] == "y") {                       
+                    if (inputs[2] == "Y" || inputs[2] == "y") {                       
                         args.push(`${dirName}/src/middleware`)
                         argInstall.push("jsonwebtoken");
                     }
@@ -37,15 +37,22 @@ export default class create {
                         argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
+                        argInstall.push("typescript")
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
+                    if ((inputs[3] == "Y" || inputs[3] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
                         args.push(`${dirName}/src/validators`);
                     }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
+                    else if ((inputs[3] == "Y" || inputs[3]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
                         argInstall.push("class-validator", "class-transformer");
                         args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
+                    }
+
+                    if(inputs[1]?.toLowerCase()=="p")
+                        argInstall.push("prisma", "@prisma/client")
+                    else if(inputs[1]?.toLowerCase()=="t"){
+                        argInstall.push("typeorm", "mysql2");
+                        args.push(`${dirName}/src/Entities`, `${dirName}/src/config`)
                     }
 
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
@@ -74,11 +81,11 @@ export default class create {
                         "bcrypt"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
-                        args.push(`${dirName}/src/middleware`)
+                        args.push(`${dirName}\\src\\middleware`)
                         argInstall.push("jsonwebtoken");
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
-                        args.push(`${dirName}/src/config`, `${dirName}/src/models`);
+                        args.push(`${dirName}\\src\\config`, `${dirName}\\src\\models`);
                         argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
@@ -86,11 +93,18 @@ export default class create {
 
                     if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
-                        args.push(`${dirName}/src/validators`);
+                        args.push(`${dirName}\\src\\validators`);
                     }
                     else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
                         argInstall.push("class-validator", "class-transformer");
-                        args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
+                        args.push(`${dirName}\\src\\DTO`, `${dirName}\\src\\middleware`)
+                    }
+
+                    if(inputs[1]?.toLowerCase()=="p")
+                        argInstall.push("prisma", "@prisma\\client")
+                    else if(inputs[1]?.toLowerCase()=="t"){
+                        argInstall.push("typeorm", "mysql2");
+                        args.push(`${dirName}\\src\\Entities`, `${dirName}/src/config`)
                     }
 
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
