@@ -30,8 +30,6 @@ export default class WriteAccToInput {
                                 routesWriting.writingJWTReqVal(dirName),
                                 ReqValWrite.writingMDB(dirName)
                             ])
-                            // await routesWriting.writingJWTReqVal(dirName);
-                            // await ReqValWrite.writingMDB(dirName);
                         }
 
                         await Promise.all([
@@ -41,11 +39,6 @@ export default class WriteAccToInput {
                             serviceWriting.ServiceMongoWritingJWT(dirName),
                             envWriting.EnvMongoWritingJWT(dirName)
                         ])
-                        // await jwtWriting.jwtMongoWriting(dirName);
-                        // await authWriting.AuthWriting(dirName);
-                        // await controllerWriting.writingJWT(dirName);
-                        // await serviceWriting.ServiceMongoWritingJWT(dirName);
-                        // await envWriting.EnvMongoWritingJWT(dirName);
 
                     } else {
                         await routesWriting.writing(dirName);
@@ -54,17 +47,12 @@ export default class WriteAccToInput {
                                 routesWriting.writingReqVal(dirName),
                                 ReqValWrite.writingMDB(dirName)
                             ])
-                            // await routesWriting.writingReqVal(dirName);
-                            // await ReqValWrite.writingMDB(dirName);
                         }
                         await Promise.all([
                             controllerWriting.writing(dirName),
                             serviceWriting.ServiceMongoWriting(dirName),
                             envWriting.EnvMongoWriting(dirName)
                         ])
-                        // await controllerWriting.writing(dirName);
-                        // await serviceWriting.ServiceMongoWriting(dirName);
-                        // await envWriting.EnvMongoWriting(dirName);
                     }
                     await Promise.all([
                         configWriting.mongoDBWriting(dirName),
@@ -72,10 +60,6 @@ export default class WriteAccToInput {
                         CommomModuleInvoke.invokeMDB(dirName),
                         modelWriting.mongoModelWriting(dirName)
                     ])
-                    // await configWriting.mongoDBWriting(dirName);
-                    // await indexWriting.IndexMongoWriting(dirName);
-                    // await CommomModuleInvoke.invokeMDB(dirName);
-                    // await modelWriting.mongoModelWriting(dirName);
                     Events.EmitMessage("done", {});
                     break;
 
@@ -89,9 +73,6 @@ export default class WriteAccToInput {
                                 ReqValWrite.writingSQlValMidd(dirName),
                                 ReqValWrite.writingSQlJWTDTO(dirName)
                             ])
-                            // await routesWriting.writingSqlJWTReqval(dirName);
-                            // await ReqValWrite.writingSQlValMidd(dirName);
-                            // await ReqValWrite.writingSQlJWTDTO(dirName)
                         }
                         await Promise.all([
                             jwtWriting.jwtSqlWriting(dirName),
@@ -102,14 +83,6 @@ export default class WriteAccToInput {
                             prismaHashWrite.PrismaHashWriting(dirName),
                             prismaSchemaWrite.PrismaSchemaWriting(dirName)
                         ])
-                        // await jwtWriting.jwtSqlWriting(dirName);
-                        // await authWriting.AuthWritingSql(dirName);
-                        // await serviceWriting.ServiceMySqlWritingWithJWT(dirName);
-                        // await controllerWriting.writingSqlJWT(dirName);
-                        // // await routesWriting.writingSqlJWT(dirName);
-                        // await envWriting.EnvMySqlWritingJWT(dirName);
-                        // await prismaHashWrite.PrismaHashWriting(dirName);
-                        // await prismaSchemaWrite.PrismaSchemaWriting(dirName);
                     } else {
                         await routesWriting.writingSql(dirName);
                         if (inputs[2] == "Y" || inputs[2] == "y") {
@@ -118,24 +91,13 @@ export default class WriteAccToInput {
                                 ReqValWrite.writingSQlValMidd(dirName),
                                 ReqValWrite.writingSQlDTO(dirName)
                             ])
-                            // await routesWriting.writingSqlReqval(dirName);
-                            // await ReqValWrite.writingSQlValMidd(dirName);
-                            // await ReqValWrite.writingSQlDTO(dirName)
                         }
                         await Promise.all([
                             controllerWriting.writingSql(dirName),
                             serviceWriting.ServiceMySqlWriting(dirName),
-                            // await routesWriting.writingSql(dirName);
-                            // await envWriting.EnvMySqlWriting();
                             prismaHashWrite.PrismaHashWriting(dirName),
                             prismaSchemaWrite.PrismaSchemaWriting(dirName)
                         ])
-                        // await controllerWriting.writingSql(dirName);
-                        // await serviceWriting.ServiceMySqlWriting(dirName);
-                        // // await routesWriting.writingSql(dirName);
-                        // // await envWriting.EnvMySqlWriting();
-                        // await prismaHashWrite.PrismaHashWriting(dirName);
-                        // await prismaSchemaWrite.PrismaSchemaWriting(dirName);
                     }
                     await Promise.all([
                         indexWriting.IndexSqlWriting(dirName),
@@ -143,10 +105,6 @@ export default class WriteAccToInput {
                         tsConfigWriting.tsConfigWriting(dirName),
                         interfaces.interfaceWriting(dirName)
                     ])
-                    // await indexWriting.IndexSqlWriting(dirName);
-                    // await CommomModuleInvoke.invokeSql(dirName);
-                    // await tsConfigWriting.tsConfigWriting(dirName);
-                    // await interfaces.interfaceWriting(dirName);
                     Events.EmitMessage("done", {});
                     break;
             }

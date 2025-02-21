@@ -12,7 +12,8 @@
         "declarationDir": "./lib/types"
     },
     "include": [
-        "./SourceCode/**/*.ts"
+        "./SourceCode/**/*.ts",
+        "./package*.json"
     ],
     "exclude": [
         "./lib"

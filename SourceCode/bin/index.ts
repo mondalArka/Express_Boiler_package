@@ -1,18 +1,29 @@
 #!/usr/bin/env node
-
 import PopulateFiles from "../populate";
 import { ExistDir, Events } from "../exports";
 
-const name: string = process.argv[2];
-if (name == undefined || name == "" || name == null) {
-    console.log("Please provide a project name!");
-    process.exit(1);
-}
-
 class setup {
     public static async settingUp(): Promise<void> {
-        ExistDir.checkDirExists(name);
-        await PopulateFiles.main(name);
+        let num: number = 2;
+        let name: string = process.argv[2];
+        if (name === undefined || name === "" || name === null) {
+            console.log("\x1b[32mPlease provide a directory name!\x1b[0m");
+            do {
+                name = await ExistDir.noName();
+                num = await ExistDir.checkDirExists(name);
+            } while (num == 1)
+        }
+        if (num == 2) {
+            num = await ExistDir.checkDirExists(name);
+            if (num == 1) {
+                do {
+                    name = await ExistDir.noName();
+                    num = await ExistDir.checkDirExists(name);
+                } while (num == 1)
+            }
+        }
+        console.log("");
+        PopulateFiles.main(name);
     }
 }
 

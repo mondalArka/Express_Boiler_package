@@ -16,7 +16,7 @@ const schema = mongoose.Schema({
     }
 },{
     versionKey:false,
-    timestamp:true
+    timestamps:true
 })
 
 schema.pre('save', async function (next) {

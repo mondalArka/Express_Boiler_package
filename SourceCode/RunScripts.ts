@@ -28,7 +28,7 @@ export default class create {
                         "dotenv",
                         "bcrypt"
                     ]
-                    if (inputs[1] == "Y" || inputs[1] == "y") {
+                    if (inputs[1] == "Y" || inputs[1] == "y") {                       
                         args.push(`${dirName}/src/middleware`)
                         argInstall.push("jsonwebtoken");
                     }
