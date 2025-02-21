@@ -1,6 +1,6 @@
 import { execFile, ExecFileException, spawn, spawnSync } from "child_process";
 import { readFile, writeFile } from "fs";
-import { prismaInit, packMod } from "./exports"
+import { prismaInit, typeorm } from "./exports"
 import Events from "./EventHandling";
 
 export default class packageModify {
@@ -13,29 +13,7 @@ export default class packageModify {
                 process.exit(1)
             } else console.log("\x1b[32mDependencies installed...\x1b[0m");
             // initialize prisma and client
-            if (argument.includes("typescript")) {
-                execFile("npx", ["-v"], (err: ExecFileException | null, stdout: string, stderr: string) => {
-                    if (err) {
-                        console.log("\x1b[31mNpx not found!\x1b[0m");
-                        console.log("\x1b[34mInstalling npx CLI...\x1b[0m");
-                        
-                        execFile("npm", ["install", "-g", "npx"], (err, stdout, stderr) => {
-                            if (err) {
-                                console.log("\x1b[31mError in installing npx package: \x1b[0m" + err.message + "\n" + err.stack);
-                                process.exit(1)
-                            }
-                            console.log("\x1b[32mNpx installed...\x1b[0m");
-                            execFile("npm", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
-                                if (err) {
-                                    console.log("\x1b[32mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
-                                    process.exit(1)
-                                }
-                                console.log("\x1b[32mType packages installed...\x1b[0m");
-                                Promise.resolve(prismaInit.prismaExecLinux(args[6] as string, args[8] as string)).catch(err => console.log("\x1b[31mError in prisma initialize!\x1b[0m")
-                                )
-                            })
-                        })
-                    }
+            if (argument.includes("prisma")) {
                     execFile("npm", ["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"], { cwd: args[8] as string }, (err: ExecFileException | null, stdout: string, stderr: string) => {
                         if (err) {
                             console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
@@ -45,8 +23,18 @@ export default class packageModify {
                         Promise.resolve(prismaInit.prismaExecLinux(args[6] as string, args[8] as string)).catch(err => console.log("\x1b[31mError in prisma initialize!\x1b[0m")
                         )
                     })
-                })
 
+            } else if(argument.includes("typeorm")){
+                execFile("npm",["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"],{cwd:process.cwd()+`/${args[8] as string}`},(err:ExecFileException | null,stdout:string,stderr:string)=>{
+                    if(err){    
+                        console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
+                        process.exit(1)
+                    }
+                    console.log("\x1b[32mType package installed...\x1b[0m");
+                    typeorm.scriptPackage(args[6] as string, args[8] as string).then(()=>{
+                        Events.EmitMessage("installed", {});
+                    }); 
+            })
             } else {
                 const reading = readFile(pacakgePath, (err: NodeJS.ErrnoException | null, data: Buffer) => {
                     if (err) {
@@ -99,6 +87,17 @@ export default class packageModify {
                 Promise.resolve(prismaInit.prismaExecWindows(args[6] as string, args[8] as string)).catch(err => console.log("\x1b[31mError in prisma initialize!\x1b[0m")
                 )
             })
+        } else if(argument.includes("typeorm")){
+            execFile("npm.cmd",["install", "--save-dev", "@types/express", "@types/cors", "@types/bcrypt", "@types/jsonwebtoken"],{cwd:process.cwd()+`/${args[8] as string}`},(err:ExecFileException | null,stdout:string,stderr:string)=>{
+                if(err){    
+                    console.log("\x1b[31mError in installing Type packages: \x1b[0m" + err.message + "\n" + err.stack);
+                    process.exit(1)
+                }
+                console.log("\x1b[32mType package installed...\x1b[0m");
+                typeorm.scriptPackage(args[6] as string, args[8] as string).then(()=>{
+                    Events.EmitMessage("installed", {});
+                }); 
+        })
         } else {
             const reading = readFile(packagePath, (err: NodeJS.ErrnoException | null, data: Buffer) => {
                 if (err) {

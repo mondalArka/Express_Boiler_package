@@ -48,6 +48,14 @@ export default class create {
                         args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
                     }
 
+                    // typeorm and prisma
+                    if(inputs[1]?.toLowerCase()=="p")
+                        argInstall.push("prisma", "@prisma/client");
+                    else if(inputs[1]?.toLowerCase()=="t"){
+                        argInstall.push("typeorm","mysql2","ts-node-dev");
+                        args.push(`${dirName}/src/Entity`,`${dirName}/src/config`,`${dirName}/src/migrations`);
+                    }
+
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }
@@ -71,9 +79,10 @@ export default class create {
                         "express",
                         "cors",
                         "dotenv",
-                        "bcrypt"
+                        "bcrypt",
+                        "rimraf"
                     ]
-                    if (inputs[1] == "Y" || inputs[1] == "y") {
+                    if (inputs[2] == "Y" || inputs[2] == "y") {
                         args.push(`${dirName}\\src\\middleware`)
                         argInstall.push("jsonwebtoken");
                     }
@@ -82,17 +91,24 @@ export default class create {
                         argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "typescript")
+                        argInstall.push("typescript")
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
+                    if ((inputs[3] == "Y" || inputs[3] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
                         args.push(`${dirName}\\src\\validators`);
                     }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
+                    else if ((inputs[3] == "Y" || inputs[3]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
                         argInstall.push("class-validator", "class-transformer");
                         args.push(`${dirName}\\src\\DTO`, `${dirName}\\src\\middleware`)
                     }
 
+                    if(inputs[1]?.toLowerCase()=="p")
+                        argInstall.push("prisma", "@prisma/client");
+                    else if(inputs[1]?.toLowerCase()=="t"){
+                        argInstall.push("typeorm","mysql2","ts-node-dev");
+                        args.push(`${dirName}\\src\\Entity`,`${dirName}\\src\\config`,`${dirName}\\src\\migrations`);
+                    }
+                    
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }

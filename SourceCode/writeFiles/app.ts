@@ -65,48 +65,95 @@ export default class WriteAccToInput {
 
                 case 's':
                 case 'S':
-                    if (inputs[1] == "y" || inputs[1] == "Y") {
-                        await routesWriting.writingSqlJWT(dirName);
-                        if (inputs[2] == "Y" || inputs[2] == "y") {
+                    if(inputs[1].toLowerCase()=="t"){
+                        if (inputs[2] == "y" || inputs[2] == "Y") {
+                            await routesWriting.writingSqlJWT(dirName);
+                            if (inputs[3] == "Y" || inputs[3] == "y") {
+                                await Promise.all([
+                                    routesWriting.writingSqlJWTReqval(dirName),
+                                    ReqValWrite.writingSQlValMidd(dirName),
+                                    ReqValWrite.writingSQlJWTDTO(dirName)
+                                ])
+                            }else{
+                                await Promise.all([
+                                    routesWriting.writingSqlJWT(dirName),
+                                    serviceWriting.ServiceMySqlTypeormWriting
+                                ])
+                            }
                             await Promise.all([
-                                routesWriting.writingSqlJWTReqval(dirName),
-                                ReqValWrite.writingSQlValMidd(dirName),
-                                ReqValWrite.writingSQlJWTDTO(dirName)
+                                jwtWriting.jwtSqlWriting(dirName),
+                                authWriting.AuthWritingSql(dirName),
+                                controllerWriting.writingSqlJWT(dirName),
+                                envWriting.EnvMySqlWritingJWT(dirName),
+                            ])
+                        } else {
+                            await routesWriting.writingSql(dirName);
+                            if (inputs[3] == "Y" || inputs[3] == "y") {
+                                await Promise.all([
+                                    routesWriting.writingSqlReqval(dirName),
+                                ])
+                            }else{
+                                await Promise.all([
+                                    routesWriting.writingSql(dirName),
+                                ])
+                            }
+                            await Promise.all([
+                                controllerWriting.writingSql(dirName),
+                                serviceWriting.ServiceMySqlTypeormWriting(dirName),
+                                envWriting.EnvMySqlWritingType(dirName)
                             ])
                         }
-                        await Promise.all([
-                            jwtWriting.jwtSqlWriting(dirName),
-                            authWriting.AuthWritingSql(dirName),
-                            serviceWriting.ServiceMySqlWritingWithJWT(dirName),
-                            controllerWriting.writingSqlJWT(dirName),
-                            envWriting.EnvMySqlWritingJWT(dirName),
-                            prismaHashWrite.PrismaHashWriting(dirName),
-                            prismaSchemaWrite.PrismaSchemaWriting(dirName)
+                        Promise.all([
+                            modelWriting.sqlModelWriting(dirName),
+                            configWriting.typeorm(dirName),
+                            modelWriting.sqlModelWriting(dirName)
                         ])
-                    } else {
-                        await routesWriting.writingSql(dirName);
-                        if (inputs[2] == "Y" || inputs[2] == "y") {
+                    }else{
+                        if (inputs[2] == "y" || inputs[2] == "Y") {
+                            await routesWriting.writingSqlJWT(dirName);
+                            if (inputs[3] == "Y" || inputs[3] == "y") {
+                                await Promise.all([
+                                    routesWriting.writingSqlJWTReqval(dirName),
+                                    ReqValWrite.writingSQlValMidd(dirName),
+                                ])
+                            }else{
+                                await Promise.all([
+                                    routesWriting.writingSqlJWT(dirName),
+                                ])
+                            }
+
                             await Promise.all([
-                                routesWriting.writingSqlReqval(dirName),
-                                ReqValWrite.writingSQlValMidd(dirName),
-                                ReqValWrite.writingSQlDTO(dirName)
+                                jwtWriting.jwtSqlWriting(dirName),
+                                authWriting.AuthWritingSql(dirName),
+                                serviceWriting.ServiceMySqlWritingWithJWT(dirName),
+                                envWriting.EnvMySqlWritingJWT(dirName),
+                            ])
+                        } else {
+                            await routesWriting.writingSql(dirName);
+                            if (inputs[3] == "Y" || inputs[3] == "y") {
+                                await Promise.all([
+                                    routesWriting.writingSqlReqval(dirName),
+                                    ReqValWrite.writingSQlValMidd(dirName),
+                                ])
+                            }else{
+                                await Promise.all([
+                                    routesWriting.writingSqlReqval(dirName),
+                                ])
+                            }
+                            await Promise.all([
+                                controllerWriting.writingSql(dirName),
+                                serviceWriting.ServiceMySqlTypeormWriting(dirName),
                             ])
                         }
-                        await Promise.all([
-                            controllerWriting.writingSql(dirName),
-                            serviceWriting.ServiceMySqlWriting(dirName),
-                            prismaHashWrite.PrismaHashWriting(dirName),
-                            prismaSchemaWrite.PrismaSchemaWriting(dirName)
-                        ])
                     }
                     await Promise.all([
-                        indexWriting.IndexSqlWriting(dirName),
                         CommomModuleInvoke.invokeSql(dirName),
                         tsConfigWriting.tsConfigWriting(dirName),
                         interfaces.interfaceWriting(dirName)
                     ])
                     Events.EmitMessage("done", {});
                     break;
+
             }
         } catch (err) {
             console.log("\x1b[31mError in writing files!\x1b[0m");

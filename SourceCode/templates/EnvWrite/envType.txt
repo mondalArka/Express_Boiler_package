@@ -1,0 +1,7 @@
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=username
+DB_PASSWORD=passord
+DB_DATABASE=mydb
+AUTH_SECRET=your_jwt_secret

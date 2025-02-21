@@ -5,5 +5,10 @@ export default class configWriting {
             let reading = await readFile(path.join(__dirname, "../", "templates", "ConfigWrite", "MongoConfig.txt"))
             let index = await writeFile(process.cwd() + `/${dirName}/src/config/dbConfig.js`, reading)
     }
+
+    public static async typeorm(dirName: string): Promise<void> {
+        let reading = await readFile(path.join(__dirname, "../", "templates", "ConfigWrite", "MySqlConfig.txt"))
+        let index = await writeFile(process.cwd() + `/${dirName}/src/config/dataSource.ts`, reading)
+}
 }
 

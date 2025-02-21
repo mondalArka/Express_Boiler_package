@@ -1,5 +1,5 @@
 import { writeFile, readFile } from "fs/promises";
-export default class packMod {
+export default class typeorm {
     public static async scriptPackage(sys: string, Path: string) {
         try {
             const pacakgePath = Path + `/package.json`
@@ -11,15 +11,15 @@ export default class packMod {
             let str = JSON.parse(reading.toString("utf-8"));
             if (sys == "linux") {
                 str["scripts"]["start"] = "rm -rf dist && npm run build && node ./dist/index.js"
-                str["scripts"]["build"] = "rm -rf && tsc -p ."
-                str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
-                str["scripts"]["client:generate"] = "npx prisma generate"
+                str["scripts"]["build"] = " tsc -p ."
+                str["scripts"]["generate:migrate"] = "rm -rf dist && npm run build && typeorm-ts-node-esm migration:generate src/migrations/${TABLE_NAME} -d src/config/dataSource.ts"
+                str["scripts"]["migrate"] = "rm -rf dist && npm run build && typeorm-ts-node-esm migration:run -d src/config/dataSource.ts"
             }
             if (sys == "win32") {
                 str["scripts"]["start"] = "rimraf dist && npm run build && node ./dist/index.js"
-                str["scripts"]["build"] = "rimraf dist && tsc -p ."
-                str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
-                str["scripts"]["client:generate"] = "npx prisma generate"
+                str["scripts"]["build"] = "tsc -p ."
+                str["scripts"]["generate:migrate"] = "rimraf dist && npm run build && typeorm-ts-node-esm migration:generate src/migrations/${TABLE_NAME} -d src/config/dataSource.ts"
+                str["scripts"]["client:generate"] = "rimraf dist && npm run build && typeorm-ts-node-esm migration:run -d src/config/dataSource.ts"
             }
             let writes = await writeFile(pacakgePath, JSON.stringify(str, null, 2))
             Promise.resolve(writes).catch(err => {
