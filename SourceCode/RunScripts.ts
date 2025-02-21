@@ -37,7 +37,7 @@ export default class create {
                         argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
+                        argInstall.push("prisma", "@prisma/client", "typescript")
 
                     if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
@@ -74,23 +74,23 @@ export default class create {
                         "bcrypt"
                     ]
                     if (inputs[1] == "Y" || inputs[1] == "y") {
-                        args.push(`${dirName}/src/middleware`)
+                        args.push(`${dirName}\\src\\middleware`)
                         argInstall.push("jsonwebtoken");
                     }
                     if (inputs[0] == "M" || inputs[0] == "m") {
-                        args.push(`${dirName}/src/config`, `${dirName}/src/models`);
+                        args.push(`${dirName}\\src\\config`, `${dirName}\\src\\models`);
                         argInstall.push("mongoose", "nodemon");
                     }
                     if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "mysql2", "typescript")
+                        argInstall.push("prisma", "@prisma/client", "typescript")
 
                     if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
                         argInstall.push("joi");
-                        args.push(`${dirName}/src/validators`);
+                        args.push(`${dirName}\\src\\validators`);
                     }
                     else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
                         argInstall.push("class-validator", "class-transformer");
-                        args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
+                        args.push(`${dirName}\\src\\DTO`, `${dirName}\\src\\middleware`)
                     }
 
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
