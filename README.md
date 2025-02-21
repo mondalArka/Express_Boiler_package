@@ -35,5 +35,7 @@ npx boiler-plate <your-directory-name>
 Use this command in the bash:
 ```bash
 npx boiler-plate-expressjs <your-directory-name>
+```
 
-
+## Note:
+Updates are still going...
