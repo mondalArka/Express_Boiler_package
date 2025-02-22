@@ -6,9 +6,7 @@
 - **Database Setup**: Choose between MySQL (with TypeScript for ORM support) or MongoDB.
 - **Authentication**: Option to include JWT authentication setup for your app.
 - **Request Validation**: Option to add request validation to ensure cleaner code and error handling.
-- **Joi**: Used for request validation, when Database selected as MongoDB.
---**class-validator**: Used for request validation, when Database selected as MySQL.
-- **Prisma ORM** for MySQL and **Mongoose ORM** for MongoDB.
+- **Prisma ORM** or **Type ORM** for MySQL and **Mongoose ORM** for MongoDB.
 
 ## Intended Audience:
 This package is ideal for:

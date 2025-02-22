@@ -10,20 +10,20 @@ class setup {
             console.log("\x1b[33mPlease provide a directory name!\x1b[0m");
             do {
                 name = await ExistDir.noName();
-                num = await ExistDir.checkDirExists(name);
+                num = await ExistDir.checkDirExists(name.trim());
             } while (num == 1)
         }
         if (num == 2) {
-            num = await ExistDir.checkDirExists(name);
+            num = await ExistDir.checkDirExists(name.trim());
             if (num == 1) {
                 do {
                     name = await ExistDir.noName();
-                    num = await ExistDir.checkDirExists(name);
+                    num = await ExistDir.checkDirExists(name.trim());
                 } while (num == 1)
             }
         }
         console.log("");
-        PopulateFiles.main(name);
+        PopulateFiles.main(name.trim());
     }
 }
 
