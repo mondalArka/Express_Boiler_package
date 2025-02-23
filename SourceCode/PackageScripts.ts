@@ -11,6 +11,7 @@ export default class packMod {
             })
             let str = JSON.parse(reading.toString("utf-8"));
             switch(sys) {
+                case "darwin":
                 case "linux":{
                     if(args[5].includes("mongoose")){
                         str["type"]="commonjs"
@@ -90,6 +91,7 @@ export default class packMod {
                             str["dependencies"]["reflect-metadata"]="^0.2.2"
                         }
                     }
+                    break;
                 }
                 case "win32":{
                 if(args[5].includes("mongoose")){
@@ -172,7 +174,10 @@ export default class packMod {
                         str["dependencies"]["reflect-metadata"]="^0.2.2"
                     }
                 }
+                break;
                 }
+                default: console.log("\x1b[31mSystem  not supported\x1b[0m");
+                
         } 
         let writes = await writeFile(pacakgePath, JSON.stringify(str, null, 2))
         Promise.resolve(writes).catch(err => {
