@@ -1,6 +1,6 @@
 {
   "name": "boiler-plate-expressjs",
-  "version": "1.0.20",
+  "version": "1.0.22",
   "type": "commonjs",
   "description": "To create a express-app boiler plate",
   "main": "lib/index.js",

@@ -4,7 +4,7 @@ import { hash } from 'bcrypt';
 const prisma = new PrismaClient();
 
 // Define middleware function for password hashing
-prisma.$use(async (params, next) => {
+prisma.$use(async (params: any, next: any) => {
   if (params.model === 'User' && params.action === 'create') {
     // Check if password exists in the data
     if (params.args.data.password) {

@@ -99,8 +99,6 @@ export default class create {
                         argInstall.push("typeorm","mysql2");
                         args.push(`${dirName}\\src\\Entity`,`${dirName}\\src\\config`,`${dirName}\\src\\migrations`);
                     }
-                    console.log(dirName,"dirname");
-                    
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }

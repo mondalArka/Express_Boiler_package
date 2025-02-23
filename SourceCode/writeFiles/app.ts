@@ -84,7 +84,8 @@ export default class WriteAccToInput {
                                 authWriting.AuthWritingSql(dirName),
                                 controllerWriting.writingSqlJWT(dirName),
                                 envWriting.EnvMySqlWritingTypeJWt(dirName),
-                                serviceWriting.ServiceMySqlTypeormJWTWriting(dirName)
+                                serviceWriting.ServiceMySqlTypeormJWTWriting(dirName),
+                                interfaces.interfaceWriting(dirName),
                             ])
                         } else {
                             await routesWriting.writingSql(dirName);
@@ -102,14 +103,15 @@ export default class WriteAccToInput {
                             await Promise.all([
                                 controllerWriting.writingSql(dirName),
                                 envWriting.EnvMySqlWritingType(dirName),
-                                serviceWriting.ServiceMySqlTypeormWriting(dirName)
+                                serviceWriting.ServiceMySqlTypeormWriting(dirName),
+                                interfaces.interfaceWritingNoJWT(dirName),
                             ])
                         }
                         Promise.all([
                             modelWriting.sqlModelWriting(dirName),
                             configWriting.typeorm(dirName),
                             modelWriting.sqlModelWriting(dirName),
-                            indexWriting.IndexSqlTypeormWriting(dirName)
+                            indexWriting.IndexSqlTypeormWriting(dirName),
                         ])
                     }else{
                         if (inputs[2] == "y" || inputs[2] == "Y") {
@@ -131,7 +133,8 @@ export default class WriteAccToInput {
                                 jwtWriting.jwtSqlWritingPrisma(dirName),
                                 serviceWriting.ServiceMySqlWritingWithJWT(dirName),
                                 envWriting.EnvMySqlWritingJWT(dirName),
-                                controllerWriting.writingSqlJWT(dirName)
+                                controllerWriting.writingSqlJWT(dirName),
+                                interfaces.interfaceWriting(dirName),
                             ])
                         } else {
                             await routesWriting.writingSql(dirName);
@@ -149,17 +152,17 @@ export default class WriteAccToInput {
                             await Promise.all([
                                 controllerWriting.writingSql(dirName),
                                 serviceWriting.ServiceMySqlTypeormWriting(dirName),
+                                interfaces.interfaceWritingNoJWT(dirName)
                             ])
                         }
                         await Promise.all([
                             prismaSchemaWrite.PrismaSchemaWriting(dirName),
-                            prismaHashWrite.PrismaHashWriting(dirName)
+                            prismaHashWrite.PrismaHashWriting(dirName),
                         ])
                     }
                     await Promise.all([
                         CommomModuleInvoke.invokeSql(dirName),
                         tsConfigWriting.tsConfigWriting(dirName),
-                        interfaces.interfaceWriting(dirName),
                         
                     ])
                     Events.EmitMessage("done", {});
