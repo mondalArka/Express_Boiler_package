@@ -66,6 +66,7 @@ export default class packMod {
                         str["scripts"]["build"] = "rm -rf dist && tsc -p ."
                         str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate src/migrations/${TABLE_NAME} -d dist/config/dataSource.ts"
                         str["scripts"]["migrate"] = "npm run build && typeorm migration:run -d src/config/dataSource.ts"
+                        str["scripts"]["migrate:rollback"]="npm run build && typeorm migration:revert -d src/config/dataSource.ts"
                         str["dependencies"]={
                             "mysql2":"^3.12.0",
                             "typeorm": "^0.3.20",
@@ -148,6 +149,7 @@ export default class packMod {
                     str["scripts"]["build"] = "rimraf dist && tsc -p ."
                     str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate src/migrations/${TABLE_NAME} -d dist/config/dataSource.ts"
                     str["scripts"]["migrate"] = "npm run build && typeorm migration:run -d src/config/dataSource.ts"
+                    str["scripts"]["migrate:rollback"]="npm run build && typeorm migration:revert -d src/config/dataSource.ts"
                     str["dependencies"]={
                         "mysql2":"^3.12.0",
                         "typeorm": "^0.3.20",
