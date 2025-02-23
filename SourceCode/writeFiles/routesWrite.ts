@@ -40,7 +40,12 @@ initialRouter.post("/login",asyncHandler(loginValidation), asyncHandler(initialC
 
     public static async writingSql(dirName:string): Promise<void> {
             let reading: Buffer = await readFile(path.join(__dirname,"../","templates","RoutesWrite","routesContentTS.txt"))
-            let index: void = await writeFile(process.cwd() + `/${dirName}/src/routes/initialRoutes.ts`, reading)
+            let str: string = reading.toString("utf-8");
+            str =str.replace(`initialRouter.post("/register", asyncHandler(validateInput(RegistrationDTO)), asyncHandler(initialController.registration));`,
+                `initialRouter.post("/register", asyncHandler(initialController.registration));`)
+                str =str.replace(`import { RegistrationDTO } from "../DTO/authDTO";
+import { validateInput } from "../middleware/validation";`,"")
+            let index: void = await writeFile(process.cwd() + `/${dirName}/src/routes/initialRoutes.ts`, str)
     }
 
     public static async writingSqlJWT(dirName:string): Promise<void> {

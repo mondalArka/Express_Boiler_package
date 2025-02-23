@@ -13,6 +13,7 @@ export default class packMod {
             switch(sys) {
                 case "linux":{
                     if(args[5].includes("mongoose")){
+                        str["type"]="commonjs"
                         str["scripts"]["start"] = "nodemon index.js"
                         str["dependencies"] = {
                             "nodemon": "^3.1.9",
@@ -28,6 +29,7 @@ export default class packMod {
                         if(args[5].includes("joi")) str["dependencies"]["joi"]="^17.13.3"
 
                     }else if(args[5].includes("prisma")){
+                        str["type"]="commonjs"
                         str["scripts"]["start"] = "npm run build && node ./dist/index.js"
                         str["scripts"]["build"] = "rm -rf dist && tsc -p ."
                         str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
@@ -58,6 +60,7 @@ export default class packMod {
                             str["dependencies"]["reflect-metadata"]="^0.2.2"
                         }
                     }else{
+                        str["type"]="commonjs"
                         str["scripts"]["start"] = "npm run build && node ./dist/index.js"
                         str["scripts"]["build"] = "rm -rf dist && tsc -p ."
                         str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate src/migrations/${TABLE_NAME} -d dist/config/dataSource.ts"
@@ -90,6 +93,7 @@ export default class packMod {
                 }
                 case "win32":{
                 if(args[5].includes("mongoose")){
+                    str["type"]="commonjs"
                     str["scripts"]["start"] = "nodemon index.js"
                     str["dependencies"] = {
                         "nodemon": "^3.1.9",
@@ -105,6 +109,7 @@ export default class packMod {
                     if(args[5].includes("joi")) str["dependencies"]["joi"]="^17.13.3"
 
                 }else if(args[5].includes("prisma")){
+                    str["type"]="commonjs"
                     str["scripts"]["start"] = "npm run build && node ./dist/index.js"
                     str["scripts"]["build"] = "rimraf dist && tsc -p ."
                     str["scripts"]["migrate"] = "npx prisma migrate dev --name init"
@@ -136,6 +141,7 @@ export default class packMod {
                         str["dependencies"]["reflect-metadata"]="^0.2.2"
                     }
                 }else{
+                    str["type"]="commonjs"
                     str["scripts"]["start"] = "npm run build && node ./dist/index.js"
                     str["scripts"]["build"] = "rimraf dist && tsc -p ."
                     str["scripts"]["generate:migrate"] = "npm run build && typeorm migration:generate src/migrations/${TABLE_NAME} -d dist/config/dataSource.ts"

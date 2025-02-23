@@ -8,9 +8,17 @@ export default class npmInitalize {
             if (err) {
                 console.log("\x1b[31mError in npm initialize!\x1b[0m", err);
                 process.exit(1);
-            } 
+            }
             console.log("\x1b[32mNpm initialized...\x1b[0m");
-            Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+            if(args[5].includes("prisma")){
+                execFile("npx",["prisma","init"],{cwd:args[8] as string},(err: ExecFileException | null, stdout: string, stderr: string)=>{
+                    if(err){
+                        console.log("\x1b[31mError in prisma initialize!\x1b[0m", err);
+                        process.exit(1);
+                    }
+                    Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+                })
+            }else Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
         })
     }
 
@@ -23,7 +31,15 @@ export default class npmInitalize {
                     process.exit(1);
                 }
                 console.log("\x1b[32mNpm initialized...\x1b[0m");
-                Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+                if(args[5].includes("prisma")){
+                    execFile("npx.cmd",["prisma","init"],{cwd:args[8] as string},(err: ExecFileException | null, stdout: string, stderr: string)=>{
+                        if(err){
+                            console.log("\x1b[31mError in prisma initialize!\x1b[0m", err);
+                            process.exit(1);
+                        }
+                        Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+                    })
+                }else Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
             })
     }
 }

@@ -123,7 +123,6 @@ export default class WriteAccToInput {
                             }else{
                                 await Promise.all([
                                     routesWriting.writingSqlJWT(dirName),
-                                    ReqValWrite.writingSQlDTO(dirName)
                                 ])
                             }
 
@@ -140,10 +139,11 @@ export default class WriteAccToInput {
                                 await Promise.all([
                                     routesWriting.writingSqlReqval(dirName),
                                     ReqValWrite.writingSQlValMidd(dirName),
+                                    ReqValWrite.writingSQlDTO(dirName)
                                 ])
                             }else{
                                 await Promise.all([
-                                    routesWriting.writingSqlReqval(dirName),
+                                    routesWriting.writingSql(dirName),
                                 ])
                             }
                             await Promise.all([

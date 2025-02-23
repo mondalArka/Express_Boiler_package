@@ -2,8 +2,7 @@ import jwt from "jsonwebtoken";
 import { Decoded } from "../utils/interfaces"
 import User from "../Entity/User";
 import * as dotenv from "dotenv";
-dotenv.config();
-// Load environment variables
+
 dotenv.config();
 
 export default class JWTService {
