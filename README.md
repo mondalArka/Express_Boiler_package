@@ -12,6 +12,7 @@ This package is ideal for:
 - **Authentication**: Option to include JWT authentication setup for your app.
 - **Request Validation**: Option to add request validation to ensure cleaner code and error handling.
 - **Prisma ORM** or **Type ORM** for MySQL and **Mongoose ORM** for MongoDB.
+- **Authentication Controller** A basic auth controller has been provided.
 
 ## How to Use:
 
