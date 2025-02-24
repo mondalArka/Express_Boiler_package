@@ -1,171 +1,34 @@
 version: 2.1
 
 jobs:
-  Run_Ubuntu:
+  Pull_and_Publish:
     docker:
       - image: node:latest
     steps:
-      # Checkout the code from your Git repository
       - checkout
 
-      # Install npm dependencies
       - run:
           name: Install npm dependencies
-          command: pwd && ls && npm install
-
-      # Install expect (required for automated input)
-      - run:
-          name: Install expect
-          command: apt-get update && apt-get install -y expect
-
-      # Run the script with automated input using expect
-      - run:
-          name: Test Combination m y y
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "m\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "y\r"
-            expect "Do you want to include request validation?"
-            send "y\r"
-            expect eof
-            EOD
+          command: npm install
 
       - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
+          name: Produce build
+          command: npm run build
 
       - run:
-          name: Test Combination m y n
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "m\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "y\r"
-            expect "Do you want to include request validation?"
-            send "n\r"
-            expect eof
-            EOD
+          name: Set_Auth_Token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
 
       - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
+          name: Publish to npm registry
+          command: npm publish --registry https://registry.npmjs.org --access public
 
-      - run:
-          name: Test Combination m n n
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "m\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "n\r"
-            expect "Do you want to include request validation?"
-            send "n\r"
-            expect eof
-            EOD
-
-      - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
-
-      - run:
-          name: Test Combination m n y
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "m\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "n\r"
-            expect "Do you want to include request validation?"
-            send "y\r"
-            expect eof
-            EOD
-
-      - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
-
-      - run:
-          name: Test Combination s y y
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "s\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "y\r"
-            expect "Do you want to include request validation?"
-            send "y\r"
-            expect eof
-            EOD
-
-      - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
-
-      - run:
-          name: Test Combination s y n
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "s\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "y\r"
-            expect "Do you want to include request validation?"
-            send "n\r"
-            expect eof
-            EOD
-
-      - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
-
-      - run:
-          name: Test Combination s n n
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "s\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "n\r"
-            expect "Do you want to include request validation?"
-            send "n\r"
-            expect eof
-            EOD
-
-      - run:
-          name: Remove ExpressJs dir
-          command: rm -rf ExpressJs
-
-      - run:
-          name: Test Combination s n y
-          command: |
-            /usr/bin/expect \<<EOD
-            spawn npm run linux
-            expect "Which database you want to install?"
-            send "s\r"
-            expect "Do you want to install jsonwebtoken for authentication?"
-            send "n\r"
-            expect "Do you want to include request validation?"
-            send "y\r"
-            expect eof
-            EOD
-
-      # Start the project
-      - run:
-          name: Check for ExpressJs dir
-          command: ls
 workflows:
   version: 2
   build:
     jobs:
-      - Run_Ubuntu
-      - Run_windows
+      - Pull_and_Publish:
+          name: Publish to NPM Registry
+          filters:
+            branches:
+              only: main
