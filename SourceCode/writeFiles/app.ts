@@ -31,7 +31,6 @@ export default class WriteAccToInput {
                                 ReqValWrite.writingMDB(dirName)
                             ])
                         }
-
                         await Promise.all([
                             jwtWriting.jwtMongoWriting(dirName),
                             authWriting.AuthWriting(dirName),
@@ -127,7 +126,6 @@ export default class WriteAccToInput {
                                     routesWriting.writingSqlJWT(dirName),
                                 ])
                             }
-
                             await Promise.all([
                                 authWriting.AuthWritingSql(dirName),
                                 jwtWriting.jwtSqlWritingPrisma(dirName),
@@ -151,13 +149,14 @@ export default class WriteAccToInput {
                             }
                             await Promise.all([
                                 controllerWriting.writingSql(dirName),
-                                serviceWriting.ServiceMySqlTypeormWriting(dirName),
+                                serviceWriting.ServiceMySqlWriting(dirName),
                                 interfaces.interfaceWritingNoJWT(dirName)
                             ])
                         }
                         await Promise.all([
                             prismaSchemaWrite.PrismaSchemaWriting(dirName),
                             prismaHashWrite.PrismaHashWriting(dirName),
+                            indexWriting.IndexSqlWriting(dirName)
                         ])
                     }
                     await Promise.all([

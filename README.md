@@ -35,7 +35,7 @@ Use this command in the bash:
 npx boiler-plate-expressjs <your-directory-name>
 ```
 ### 3. Install the dependencies
-Change the directory and go to the project and run this command:
+Change and go to the project directory and run this command:
 ```bash
 npm i
 ```

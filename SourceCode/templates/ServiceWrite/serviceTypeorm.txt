@@ -7,12 +7,13 @@ export default class InitialService {
 
   // Register a new user
  public static async registerUser(body: User): Promise<response> {
-    const newUser = await User.save(body);
+    const newUser = User.create(body);
+    const save = await newUser.save();
   return  { status:201,message:"Successful registration",response:{}}
   }
 
     public static async loginUser(body:User): Promise<response> {
-        let data = await User.findOne({where:{id:Number(body.id)}});
+        let data = await User.findOne({where:{email:body.email}});
         if (!data) throw new Error("User not found!")
         if (!await compare(body.password, data.password)) throw new Error("Wrong Password!")
         let token = JWTService.generateToken({ id: data.id, email: data.email })
