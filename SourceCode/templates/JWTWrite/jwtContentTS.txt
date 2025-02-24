@@ -1,9 +1,8 @@
 import jwt from "jsonwebtoken";
-import prisma from "./hashing"
 import { Decoded } from "../utils/interfaces"
-import dotenv from "dotenv";
+import User from "../Entity/User";
+import * as dotenv from "dotenv";
 
-// Load environment variables
 dotenv.config();
 
 export default class JWTService {
@@ -24,7 +23,7 @@ export default class JWTService {
  public static async verifyToken(token: string): Promise<Decoded> {
       const decode = jwt.verify(token, process.env.AUTH_SECRET as string) as Decoded;      
       if (!decode) throw new Error("Token not valid!");
-      const data = await prisma.user.findUnique({ where: { id: Number(decode.id) }, });
+      const data = await User.findUnique({ where: { id: Number(decode.id) }});
       if (!data) throw new Error("User not found!");
 
       return decode;

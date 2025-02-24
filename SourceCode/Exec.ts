@@ -1,5 +1,5 @@
 import { execFile } from "child_process"
-import { npmInstall } from "./exports";
+import { npmInitalize } from "./exports";
 export default class Execution {
     public static createDirectoryAndInitialize(...args: Array<string | Array<string>>): void {
         try {
@@ -22,8 +22,8 @@ export default class Execution {
             // Initialize npm
             const DirectoryPath = process.cwd() + `/${args[7]}`
             args.push(DirectoryPath);
-            if (args[6] == "linux") npmInstall.linuxNpmInstall(args)
-            if (args[6] == "win32") npmInstall.windowsNpmInstall(args)
+            if (args[6] == "linux") npmInitalize.linuxNpmInstall(args)
+            if (args[6] == "win32") npmInitalize.windowsNpmInstall(args)
         } catch (err) {
             console.log("Error in installing dependencies!\n", err);
             throw err

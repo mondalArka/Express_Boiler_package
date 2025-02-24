@@ -28,26 +28,39 @@ export default class create {
                         "dotenv",
                         "bcrypt"
                     ]
-                    if (inputs[1] == "Y" || inputs[1] == "y") {                       
-                        args.push(`${dirName}/src/middleware`)
-                        argInstall.push("jsonwebtoken");
-                    }
-                    if (inputs[0] == "M" || inputs[0] == "m") {
+
+                    if (inputs[0] == "m") {
                         args.push(`${dirName}/src/config`, `${dirName}/src/models`);
                         argInstall.push("mongoose", "nodemon");
-                    }
-                    if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "typescript")
+                        if (inputs[1] == "y") {
+                            args.push(`${dirName}/src/middleware`)
+                            argInstall.push("jsonwebtoken");
+                        }
+                        if (inputs[2] == "y") {
+                            argInstall.push("joi");
+                            args.push(`${dirName}/src/validators`);
+                        }
+                    } else if (inputs[0] == "s") {
+                        if (inputs[1]?.toLowerCase() == "p")
+                            argInstall.push("prisma", "@prisma/client");
+                        else if (inputs[1]?.toLowerCase() == "t") {
+                            argInstall.push("typeorm", "mysql2");
+                            args.push(`${dirName}/src/Entity`, `${dirName}/src/config`, `${dirName}/src/migrations`);
+                        }
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
-                        argInstall.push("joi");
-                        args.push(`${dirName}/src/validators`);
-                    }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
-                        argInstall.push("class-validator", "class-transformer");
-                        args.push(`${dirName}/src/DTO`, `${dirName}/src/middleware`)
-                    }
+                        if (inputs[2] == "y") {
+                            args.push(`${dirName}/src/middleware`)
+                            argInstall.push("jsonwebtoken")
+                        }
 
+                        if (inputs[3] == "Y" || inputs[3] == "y") {
+                            args.push(`${dirName}/src/DTO`);
+                            argInstall.push("class-validator", "class-transformer");
+                            if(!args.includes(`${dirName}/src/middleware`)){
+                                args.push(`${dirName}/src/middleware`)
+                            }
+                        }
+                    }
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }
@@ -74,26 +87,38 @@ export default class create {
                         "bcrypt",
                         "rimraf"
                     ]
-                    if (inputs[1] == "Y" || inputs[1] == "y") {
-                        args.push(`${dirName}\\src\\middleware`)
-                        argInstall.push("jsonwebtoken");
-                    }
-                    if (inputs[0] == "M" || inputs[0] == "m") {
+                    if (inputs[0] == "m") {
                         args.push(`${dirName}\\src\\config`, `${dirName}\\src\\models`);
                         argInstall.push("mongoose", "nodemon");
-                    }
-                    if (inputs[0] == "S" || inputs[0] == "s")
-                        argInstall.push("prisma", "@prisma/client", "typescript")
+                        if (inputs[1] == "y") {
+                            args.push(`${dirName}\\src\\middleware`)
+                            argInstall.push("jsonwebtoken");
+                        }
+                        if (inputs[2] == "y") {
+                            argInstall.push("joi");
+                            args.push(`${dirName}\\src\\validators`);
+                        }
+                    } else if (inputs[0] == "s") {
+                        if (inputs[1]?.toLowerCase() == "p")
+                            argInstall.push("prisma", "@prisma/client");
+                        else if (inputs[1]?.toLowerCase() == "t") {
+                            argInstall.push("typeorm", "mysql2");
+                            args.push(`${dirName}\\src\\Entity`, `${dirName}\\src\\config`, `${dirName}\\src\\migrations`);
+                        }
 
-                    if ((inputs[2] == "Y" || inputs[2] == "y") && (inputs[0] == "M" || inputs[0] == "m")) {
-                        argInstall.push("joi");
-                        args.push(`${dirName}\\src\\validators`);
-                    }
-                    else if ((inputs[2] == "Y" || inputs[2]) == "y" && (inputs[0] == "S" || inputs[0] == "s")) {
-                        argInstall.push("class-validator", "class-transformer");
-                        args.push(`${dirName}\\src\\DTO`, `${dirName}\\src\\middleware`)
-                    }
+                        if (inputs[2] == "y") {
+                            args.push(`${dirName}\\src\\middleware`)
+                            argInstall.push("jsonwebtoken")
+                        }
 
+                        if (inputs[3] == "Y" || inputs[3] == "y") {
+                            args.push(`${dirName}\\src\\DTO`);
+                            argInstall.push("class-validator", "class-transformer");
+                            if(!args.includes(`${dirName}\\src\\middleware`)){
+                                args.push(`${dirName}\\src\\middleware`)
+                            }
+                        }
+                    }
                     ExecuteSh.createDirectoryAndInitialize(command, args, initalCom, argInitial, installSh, argInstall, systemIdentifier, dirName)
                     break;
                 }

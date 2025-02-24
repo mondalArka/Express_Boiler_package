@@ -1,5 +1,5 @@
-import { exec, execFile, ExecFileException, spawn, spawnSync } from "child_process";
-import { PackageModifier } from "./exports";
+import {  execFile, ExecFileException, } from "child_process";
+import { packMod } from "./exports";
 
 export default class npmInitalize {
     public static linuxNpmInstall(args: Array<string | Array<string>>) {
@@ -8,8 +8,18 @@ export default class npmInitalize {
             if (err) {
                 console.log("\x1b[31mError in npm initialize!\x1b[0m", err);
                 process.exit(1);
-            } else console.log("\x1b[32mNpm initialized...\x1b[0m");
-            PackageModifier.linuxPackage(args)
+            }
+            console.log("\x1b[32mNpm initialized...\x1b[0m");
+            if(args[5].includes("prisma")){
+                execFile("npx",["prisma","init"],{cwd:args[8] as string},(err: ExecFileException | null, stdout: string, stderr: string)=>{
+                    if(err){
+                        console.log("\x1b[31mError in prisma initialization!\x1b[0m", err);
+                        process.exit(1);
+                    }
+                    console.log("\x1b[32mPrisma initialized...\x1b[0m");
+                    Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+                })
+            }else Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
         })
     }
 
@@ -21,9 +31,18 @@ export default class npmInitalize {
                     console.log("\x1b[31mError in windows npm install!\x1b[0m", err);
                     process.exit(1);
                 }
-                PackageModifier.windowsPackage(args)
+                console.log("\x1b[32mNpm initialized...\x1b[0m");
+                if(args[5].includes("prisma")){
+                    execFile("npx.cmd",["prisma","init"],{cwd:args[8] as string},(err: ExecFileException | null, stdout: string, stderr: string)=>{
+                        if(err){
+                            console.log("\x1b[31mError in prisma initialization!\x1b[0m", err);
+                            process.exit(1);
+                        }
+                        console.log("\x1b[32mPrisma initialized...\x1b[0m");
+                        Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
+                    })
+                }else Promise.resolve(packMod.scriptPackage(args[6] as string,args[8] as string,args as string[] ))
             })
-        console.log("\x1b[32mNpm initialized...\x1b[0m");
     }
 }
 

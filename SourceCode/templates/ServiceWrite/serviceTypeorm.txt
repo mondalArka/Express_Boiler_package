@@ -1,0 +1,30 @@
+import User from "../Entity/User"
+import { compare } from "bcrypt";
+import JWTService from "../utils/jwt";
+import { response } from "../utils/interfaces";
+
+export default class InitialService {
+
+  // Register a new user
+ public static async registerUser(body: User): Promise<response> {
+    const newUser = User.create(body);
+    const save = await newUser.save();
+  return  { status:201,message:"Successful registration",response:{}}
+  }
+
+    public static async loginUser(body:User): Promise<response> {
+        let data = await User.findOne({where:{email:body.email}});
+        if (!data) throw new Error("User not found!")
+        if (!await compare(body.password, data.password)) throw new Error("Wrong Password!")
+        let token = JWTService.generateToken({ id: data.id, email: data.email })
+
+        return { status:200,message:"Fetched user data",response:{user:data,token:token}}
+    }
+
+  // Get a user by ID
+ public static async getUser(id: string): Promise<response> {
+    let data= await User.findOne({where:{id:Number(id)}});
+
+    return { status:200,message:"Fetched user data",response:data}
+  }
+}

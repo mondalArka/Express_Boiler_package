@@ -1,6 +1,7 @@
 {
   "name": "boiler-plate-expressjs",
-  "version": "1.0.20",
+  "version": "1.0.22",
+  "type": "commonjs",
   "description": "To create a express-app boiler plate",
   "main": "lib/index.js",
   "bin": {
@@ -11,7 +12,8 @@
     "win": "rimraf lib && tsc -p . && xcopy /E /I \"SourceCode\\templates\" \"lib\\templates\" > nul && node ./lib/bin/app.js",
     "linux": "rm -rf lib && tsc -p . && cp -r SourceCode/templates lib/templates && node ./lib/bin/app.js",
     "watch_win": "tsc -w .",
-    "watch_linux": "tsc -w ."
+    "watch_linux": "tsc -w .",
+    "build": "tsc -p . && cp -r SourceCode/templates lib/templates"
   },
   "repository": {
     "type": "git",
