@@ -10,7 +10,7 @@ export default class inputs {
                 output: process.stdout
             })
             let DBC = await rl.question("\x1b[33mWhich database you want to install?\nNote: Using mysql as a DB will use typescript language for better ORM stability.\x1b[0m\n\x1b[36mPress (M) for MondoDb or (S) for MySql: \x1b[0m")
-            if (DBC.toLocaleLowerCase().trim() != "" && (DBC.toLowerCase().trim() == "m" || DBC.toLowerCase().trim() == "s")) userInputs.push(DBC.toLowerCase().trim())
+            if (DBC.toLowerCase().trim() != "" && (DBC.toLowerCase().trim() == "m" || DBC.toLowerCase().trim() == "s")) userInputs.push(DBC.toLowerCase().trim())
             else {
                 do {
                     console.log("");
@@ -42,7 +42,7 @@ export default class inputs {
                     console.log("");
                     console.log("\x1b[31mInvalid Input while choosing Authentication.Try again!\x1b[0m");
                     Auth = await rl.question("\x1b[33mDo you want to install jsonwebtoken for authentication?\x1b[0m\n\x1b[36mPress (Y) for Yes or (N) for No: \x1b[0m")
-                } while (Auth.toLowerCase().toLowerCase().trim() !== "y" && Auth.toLowerCase().toLowerCase().trim() !== "n")
+                } while (Auth.toLowerCase().trim() !== "y" && Auth.toLowerCase().trim() !== "n")
                 userInputs.push(Auth.toLowerCase().trim());
             }
 
@@ -55,7 +55,7 @@ export default class inputs {
                     console.log("");  
                     console.log("\x1b[31mInvalid Input while choosing Validation.Try again!\x1b[0m");
                     reqVal = await rl.question("\x1b[33mDo you want to include request validation?\x1b[0m\n\x1b[36mPress (Y) for Yes or (N) for No: \x1b[0m")
-                } while (reqVal.toLowerCase().toLowerCase().trim() !== "y" && reqVal.toLowerCase().toLowerCase().trim() !== "n")
+                } while (reqVal.toLowerCase().trim() !== "y" && reqVal.toLowerCase().trim() !== "n")
                 userInputs.push(reqVal.toLowerCase().trim());
             }
             Events.EmitMessage("provided", { Inputs: userInputs })
