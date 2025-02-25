@@ -13,9 +13,8 @@ class Authentication {
   // Method to check and verify the JWT token
     public static async authCheck(req: Request, res: Response, next: NextFunction): Promise<Response |void> {
       const auth = req.headers.authorization;
-      if (!auth) {
-        res.status(401).json({ message: "Authorization token is required" });
-        return;
+      if (!auth || !auth.startsWith("Bearer")) {
+       return res.status(401).json({ message: "Authorization token is required!" });
       }
       const token = auth.split(" ")[1]; // Extract token from Authorization header
 
