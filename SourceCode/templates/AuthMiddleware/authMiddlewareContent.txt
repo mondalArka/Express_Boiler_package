@@ -3,6 +3,9 @@ const JWTService = require("../utils/jwt")
 class authentication {
     static async authCheck(req, res, next) {
         let auth = req.headers.authorization
+        if(!auth || !auth.startsWith("Bearer")){
+            return res.status(401).json({ message:"Authorization token is required!"});
+        }
         let token = auth.split(" ")[1]
 
         let data = await JWTService.verifyToken(token)
