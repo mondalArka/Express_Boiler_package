@@ -104,7 +104,7 @@ export default class packMod {
                             "dotenv": "^16.4.7",
                             "bcrypt": "^5.1.1"
                         }
-                        if (args[5].includes("jsonwebtoken")) str["dependencies"]["jsonwebtoken"] = "^9.0.9"
+                        if (args[5].includes("jsonwebtoken")) str["dependencies"]["jsonwebtoken"] = "^9.0.2"
 
                         if (args[5].includes("joi")) str["dependencies"]["joi"] = "^17.13.3"
 
